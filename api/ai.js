@@ -1,6 +1,5 @@
-// api/ai.js - Vercel Serverless Function using Groq (FREE)
+// api/ai.js - Using Google Gemini (FREE, supports images!)
 export default async function handler(req, res) {
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -10,44 +9,59 @@ export default async function handler(req, res) {
 
   try {
     const { messages, max_tokens = 1000 } = req.body;
-
-    // Call Groq API (FREE tier - no credit card needed)
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'llama3-8b-8192', // or 'mixtral-8x7b-32768', 'llama3-70b-8192'
-        messages: messages,
-        max_tokens: max_tokens,
-        temperature: 0.7,
-      }),
-    });
-
-    if (!response.ok) {
-      const error = await response.text();
-      throw new Error(`Groq API error: ${error}`);
+    
+    // Extract text and image from messages
+    let textContent = '';
+    let imageData = null;
+    let imageMime = 'image/jpeg';
+    
+    const msgContent = messages[0]?.content;
+    if (typeof msgContent === 'string') {
+      textContent = msgContent;
+    } else if (Array.isArray(msgContent)) {
+      msgContent.forEach(item => {
+        if (item.type === 'text') textContent = item.text;
+        if (item.type === 'image') {
+          imageData = item.source?.data;
+          imageMime = item.source?.media_type || 'image/jpeg';
+        }
+      });
     }
 
-    const data = await response.json();
-    
-    // Format response to match Anthropic's structure for compatibility
-    const formattedResponse = {
-      content: [{ text: data.choices[0].message.content }],
-      model: data.model,
-      usage: data.usage,
-    };
+    // Build Gemini request
+    const parts = [{ text: textContent }];
+    if (imageData) {
+      parts.push({
+        inlineData: {
+          mimeType: imageMime,
+          data: imageData
+        }
+      });
+    }
 
-    return res.status(200).json(formattedResponse);
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts }],
+          generationConfig: { maxOutputTokens: max_tokens, temperature: 0.7 },
+        }),
+      }
+    );
+
+    const data = await response.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+    // Format to match Anthropic structure
+    return res.status(200).json({
+      content: [{ text }],
+      model: 'gemini-1.5-flash',
+    });
 
   } catch (error) {
     console.error('AI API Error:', error);
-    return res.status(500).json({ 
-      error: { 
-        message: error.message || 'Internal server error' 
-      } 
-    });
+    return res.status(500).json({ error: { message: error.message } });
   }
 }
