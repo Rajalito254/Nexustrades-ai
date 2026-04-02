@@ -8,18 +8,20 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#030609">
 <title>NexusTrade AI</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon.svg">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Orbitron:wght@700;900&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ── RESET & BASE ─────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg0:#030609;--bg1:#060d14;--bg2:#0a1520;--bg3:#0d1e2e;
-  --border:#0e2438;--borderHi:#163650;
+  --bg0:#030609;--bg1:#07101c;--bg2:#0c1a28;--bg3:#101e2e;
+  --border:#0e2438;--borderHi:#1a3a55;
   --bull:#00e5a0;--bear:#ff3d6b;
   --accent:#00b4d8;--accentDim:#006e85;
   --gold:#f0b429;--ai:#a78bfa;--warn:#ff9f43;
-  --text:#7bafc8;--textHi:#cce8f8;--textDim:#2a4f65;--textMid:#4a7a95;
-  --nav-h:56px;--topbar-h:48px;
+  --text:#7bafc8;--textHi:#daeeff;--textDim:#2d5570;--textMid:#4a7a95;
+  --nav-h:58px;--topbar-h:50px;
 }
 html,body{height:100%;overflow:hidden;background:var(--bg0);color:var(--textHi);font-family:'IBM Plex Mono',monospace}
 ::-webkit-scrollbar{width:2px;height:2px}
@@ -99,16 +101,16 @@ input[type=number]::-webkit-inner-spin-button{display:none}
   background:transparent;color:var(--textDim);border-radius:3px;cursor:pointer;font-family:'IBM Plex Mono';text-align:center}
 .cat-tab.active{border-color:var(--accent);color:var(--accent);background:var(--accent)18}
 .inst-row{display:grid;grid-template-columns:1fr 1fr 0.7fr 0.6fr;align-items:center;
-  padding:9px 12px;border-bottom:1px solid var(--border)33;cursor:pointer;transition:background 0.1s}
+  padding:11px 14px;border-bottom:1px solid var(--border)44;cursor:pointer;transition:background 0.1s}
 .inst-row:active{background:var(--bg3)}
 .inst-row.selected{background:var(--bg3);border-left:2px solid var(--accent)}
-.inst-sym{font-family:'Barlow Condensed';font-size:13px;font-weight:700;color:var(--textHi)}
+.inst-sym{font-family:'Barlow Condensed';font-size:15px;font-weight:800;color:var(--textHi);letter-spacing:0.02em}
 .inst-sub{font-size:8px;color:var(--textDim)}
-.inst-price{font-size:10px;color:var(--textMid);font-family:'IBM Plex Mono'}
-.inst-chg{font-size:9px;font-family:'IBM Plex Mono'}
-.inst-sig{font-size:9px;font-weight:600;font-family:'IBM Plex Mono'}
+.inst-price{font-size:11px;color:var(--text);font-family:'IBM Plex Mono'}
+.inst-chg{font-size:10px;font-family:'IBM Plex Mono';font-weight:500}
+.inst-sig{font-size:10px;font-weight:700;font-family:'IBM Plex Mono'}
 .col-hdr{display:grid;grid-template-columns:1fr 1fr 0.7fr 0.6fr;padding:5px 12px;border-bottom:1px solid var(--border)}
-.col-hdr span{font-size:7px;color:var(--textDim);letter-spacing:0.1em}
+.col-hdr span{font-size:8px;color:var(--textMid);letter-spacing:0.1em;font-weight:500}
 
 /* ── CHART ────────────────────────────────────── */
 canvas{display:block;width:100%!important;border-radius:2px}
@@ -116,7 +118,7 @@ canvas{display:block;width:100%!important;border-radius:2px}
 .tf-btn{padding:5px 9px;font-size:8px;border:1px solid var(--border);background:transparent;color:var(--textDim);
   border-radius:2px;cursor:pointer;font-family:'IBM Plex Mono';white-space:nowrap;flex-shrink:0}
 .tf-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent)15}
-.price-big{font-family:'Barlow Condensed';font-size:26px;font-weight:800;color:var(--textHi);letter-spacing:0.02em}
+.price-big{font-family:'Barlow Condensed';font-size:30px;font-weight:800;color:var(--textHi);letter-spacing:0.02em;text-shadow:0 0 20px #00b4d840}
 .legend-row{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0}
 .legend-item{display:flex;align-items:center;gap:4px;font-size:8px}
 .legend-line{width:14px;height:2px;border-radius:1px}
@@ -191,6 +193,21 @@ canvas{display:block;width:100%!important;border-radius:2px}
 /* ── EMPTY STATE ──────────────────────────────── */
 .empty{text-align:center;padding:30px 20px;color:var(--textDim);font-size:10px;line-height:2}
 .empty .icon{font-size:28px;margin-bottom:8px}
+
+/* ── SCREENSHOT SCANNER ─────────────────────────── */
+.upload-zone{border:2px dashed var(--borderHi);border-radius:6px;padding:28px 20px;text-align:center;cursor:pointer;background:var(--bg0);transition:all 0.2s;margin-bottom:10px}
+.upload-zone:active{border-color:var(--accent);background:var(--accent)08}
+.upload-zone .uz-ico{font-size:40px;margin-bottom:8px;display:block}
+.upload-zone .uz-title{font-family:'Barlow Condensed';font-size:18px;font-weight:700;color:var(--textHi);margin-bottom:4px}
+.upload-zone .uz-sub{font-size:9px;color:var(--textDim);line-height:1.8}
+#chart-img-preview{width:100%;border-radius:4px;display:none;margin-bottom:10px;border:1px solid var(--border)}
+.scan-mode-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+.scan-mode-btn{padding:9px 4px;border:1px solid var(--border);border-radius:4px;background:transparent;color:var(--textDim);font-family:'IBM Plex Mono';font-size:8px;cursor:pointer;text-align:center;transition:all 0.15s}
+.scan-mode-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold)10}
+.btn-img-scan{background:linear-gradient(135deg,var(--gold)20,var(--gold)08);border:1px solid var(--gold)88;color:var(--gold);padding:13px;font-size:12px;font-weight:700;width:100%;font-family:'Barlow Condensed';letter-spacing:0.1em;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px}
+.btn-img-scan:disabled{opacity:0.4;cursor:not-allowed}
+.img-result-card{background:linear-gradient(135deg,var(--gold)0a,var(--bg2));border:1px solid var(--gold)44;border-radius:6px;padding:14px;margin-bottom:10px;display:none}
+.pattern-tag{display:inline-block;padding:3px 8px;border:1px solid var(--ai)44;border-radius:3px;font-size:8px;color:var(--ai);background:var(--ai)10;margin:2px}
 </style>
 </head>
 <body>
@@ -292,7 +309,72 @@ canvas{display:block;width:100%!important;border-radius:2px}
       </div>
     </div>
 
-    <!-- ── SIGNALS PAGE ── -->
+  
+  <!-- AI SCREENSHOT SCANNER PAGE -->
+  <div id="page-aiscanner" class="page">
+    <div style="background:linear-gradient(135deg,var(--gold)0a,var(--bg2));border:1px solid var(--gold)44;border-radius:6px;padding:12px 14px;margin-bottom:10px;font-size:9px;color:var(--textMid);line-height:1.8;font-family:'IBM Plex Mono'">
+      <strong style="color:var(--gold)">📸 Screenshot AI Scanner</strong><br>
+      Upload a live chart screenshot from MT4, MT5, TradingView or any broker app. AI will analyse the actual chart image and generate a professional signal with entry, SL and TP.
+    </div>
+    <!-- Upload -->
+    <div class="upload-zone" onclick="document.getElementById('chart-upload').click()">
+      <span class="uz-ico">📊</span>
+      <div class="uz-title">Tap to upload chart screenshot</div>
+      <div class="uz-sub">From MT4 · MT5 · TradingView · Broker App<br>Camera or Gallery · Any timeframe</div>
+    </div>
+    <input type="file" id="chart-upload" accept="image/*" style="display:none" onchange="handleChartUpload(event)">
+    <img id="chart-img-preview" alt="Chart preview">
+    <!-- Options -->
+    <div style="font-size:8px;color:var(--textDim);letter-spacing:0.12em;margin-bottom:6px">// ANALYSIS TYPE</div>
+    <div class="scan-mode-row" id="scan-mode-row">
+      <button class="scan-mode-btn active" data-mode="full" onclick="setScanMode(this)">Full Analysis</button>
+      <button class="scan-mode-btn" data-mode="entry" onclick="setScanMode(this)">Entry &amp; Levels</button>
+      <button class="scan-mode-btn" data-mode="trend" onclick="setScanMode(this)">Trend Analysis</button>
+      <button class="scan-mode-btn" data-mode="pattern" onclick="setScanMode(this)">Chart Patterns</button>
+    </div>
+    <!-- Pair + TF -->
+    <div class="grid2" style="margin-bottom:10px">
+      <div class="field">
+        <label>PAIR (optional)</label>
+        <input type="text" id="img-pair" placeholder="e.g. EURUSD" style="text-transform:uppercase">
+      </div>
+      <div class="field">
+        <label>TIMEFRAME (optional)</label>
+        <select id="img-tf">
+          <option value="">Auto-detect</option>
+          <option>M1</option><option>M5</option><option>M15</option><option>M30</option>
+          <option>H1</option><option>H4</option><option>D1</option><option>W1</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-img-scan" id="img-scan-btn" onclick="runImageScan()" disabled>
+      🔍 ANALYSE CHART IMAGE
+    </button>
+    <!-- Results -->
+    <div class="img-result-card" id="img-result-card">
+      <div style="font-size:8px;color:var(--gold);letter-spacing:0.15em;margin-bottom:10px">📸 IMAGE ANALYSIS RESULT</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div id="img-sig-pill"></div>
+        <div id="img-conf" style="font-size:9px;color:var(--ai)"></div>
+      </div>
+      <p id="img-summary" style="font-size:10px;color:var(--textMid);line-height:1.7;margin-bottom:10px;font-family:'IBM Plex Mono'"></p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <div class="card">
+          <div class="card-hdr">TRADE LEVELS</div>
+          <div class="card-body" id="img-levels"></div>
+        </div>
+        <div class="card">
+          <div class="card-hdr">PATTERNS FOUND</div>
+          <div class="card-body" id="img-patterns"></div>
+        </div>
+      </div>
+      <button class="btn btn-ai" onclick="loadImgToForm()" style="margin-bottom:0">
+        ⚡ LOAD INTO SIGNAL FORM
+      </button>
+    </div>
+  </div>
+
+  <!-- ── SIGNALS PAGE ── -->
     <div id="page-signals" class="page">
       <div class="scroll-tabs" id="sig-tabs">
         <button class="scroll-tab active" onclick="setSigTab('form')">SIGNAL FORM</button>
@@ -487,11 +569,11 @@ canvas{display:block;width:100%!important;border-radius:2px}
   <nav id="navbar">
     <button class="nav-btn active" onclick="navTo('scanner')" id="nb-scanner"><span class="ico">&#x1F50D;</span>SCANNER</button>
     <button class="nav-btn" onclick="navTo('chart')" id="nb-chart"><span class="ico">&#x1F4C8;</span>CHART</button>
+    <button class="nav-btn" onclick="navTo('aiscanner')" id="nb-aiscanner" style="position:relative"><span class="ico">&#x1F4F7;</span>AI SCAN<span style="position:absolute;top:6px;right:4px;background:var(--gold);color:#000;font-size:5px;padding:1px 3px;border-radius:2px;font-weight:700">NEW</span></button>
     <button class="nav-btn" onclick="navTo('signals')" id="nb-signals"><span class="ico">&#x26A1;</span>SIGNALS</button>
     <button class="nav-btn" onclick="navTo('sessions')" id="nb-sessions"><span class="ico">&#x1F310;</span>SESSIONS</button>
     <button class="nav-btn" onclick="navTo('risk')" id="nb-risk"><span class="ico">&#x1F6E1;</span>RISK</button>
-    <button class="nav-btn" onclick="navTo('mt5')" id="nb-mt5"><span class="ico">&#x1F916;</span>MT5 EA</button>
-    <button class="nav-btn" onclick="navTo('api')" id="nb-api"><span class="ico">&#x1F310;</span>API</button>
+    <button class="nav-btn" onclick="navTo('mt5')" id="nb-mt5"><span class="ico">&#x1F916;</span>MT5</button>
   </nav>
 
 </div>
@@ -1367,6 +1449,114 @@ function init(){
     if(document.getElementById('page-chart').classList.contains('active'))drawCharts();
   },2000);
 }
+
+// ═══════════════════════════════════════════════════════════════
+// SCREENSHOT AI SCANNER
+// ═══════════════════════════════════════════════════════════════
+let uploadedB64=null,uploadedMime='image/jpeg',scanMode='full';
+function setScanMode(btn){
+  document.querySelectorAll('.scan-mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');scanMode=btn.dataset.mode;
+}
+function handleChartUpload(e){
+  const file=e.target.files[0];if(!file)return;
+  uploadedMime=file.type||'image/jpeg';
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    uploadedB64=ev.target.result.split(',')[1];
+    const preview=document.getElementById('chart-img-preview');
+    preview.src=ev.target.result;preview.style.display='block';
+    document.getElementById('img-scan-btn').disabled=false;
+    document.getElementById('img-result-card').style.display='none';
+    addLog('Chart image loaded and ready for AI analysis','ai');
+  };
+  reader.readAsDataURL(file);
+}
+async function runImageScan(){
+  if(!uploadedB64){alert('Please upload a chart image first.');return;}
+  const btn=document.getElementById('img-scan-btn');
+  btn.innerHTML='<span style="animation:spin 0.8s linear infinite;display:inline-block">◌</span> ANALYSING...';
+  btn.disabled=true;addLog('AI analysing chart screenshot...','ai');
+  const pair=(document.getElementById('img-pair').value.toUpperCase()||'the pair on chart');
+  const tf=(document.getElementById('img-tf').value||'the timeframe shown');
+  const modePrompts={
+    full:'Provide a complete trading analysis.',
+    entry:'Focus on the best entry, stop loss and take profit levels.',
+    trend:'Analyse trend direction, strength and market structure only.',
+    pattern:'Identify all visible chart patterns and setups.'
+  };
+  const prompt=`You are an expert trading analyst. Analyse this ${pair} ${tf} chart screenshot carefully.
+${modePrompts[scanMode]||modePrompts.full}
+
+Study the chart image thoroughly. Look for:
+- All visible candlestick patterns
+- Trend lines and price structure  
+- Support and resistance levels
+- Any visible indicators (MA, RSI, MACD, Bollinger Bands, etc.)
+- Chart patterns (double top/bottom, H&S, triangles, flags, wedges)
+- Volume if shown
+
+Respond ONLY with this exact JSON format (no markdown):
+{"signal":"BUY" or "SELL" or "NEUTRAL","confidence":1-100,"strength":1-100,"trend":"BULLISH" or "BEARISH" or "RANGING","entry":"describe the entry level","sl":"describe stop loss level","tp":"describe take profit level","rr":"estimated R:R ratio as number","summary":"Write 3 detailed sentences explaining exactly what you see in this chart and why you recommend this trade","setup":"name of the setup or pattern","patterns":["pattern 1","pattern 2"],"key_levels":["level description 1","level description 2"],"indicators_visible":["indicator and signal description"]}`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:1200,
+        messages:[{role:'user',content:[
+          {type:'image',source:{type:'base64',media_type:uploadedMime,data:uploadedB64}},
+          {type:'text',text:prompt}
+        ]}]
+      })
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message||'API error - check your Anthropic API key');
+    const raw=data.content?.map(b=>b.text||'').join('')||'';
+    const result=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    renderImageResult(result);
+    addLog(`✓ Image scan: ${result.signal} | Setup: ${result.setup} | Conf:${result.confidence}%`,'ok');
+  }catch(e){
+    addLog(`✗ Image scan failed: ${e.message}`,'err');
+    alert('Analysis failed: '+e.message+'
+
+Make sure you have a valid Anthropic API key.');
+  }finally{
+    btn.innerHTML='🔍 ANALYSE CHART IMAGE';btn.disabled=false;
+  }
+}
+function renderImageResult(a){
+  const sc=a.signal==='BUY'?'var(--bull)':a.signal==='SELL'?'var(--bear)':'var(--textDim)';
+  document.getElementById('img-sig-pill').innerHTML=sigPill(a.signal,'lg');
+  document.getElementById('img-conf').textContent=`Confidence: ${a.confidence}%  ·  Setup: ${a.setup}`;
+  document.getElementById('img-summary').textContent=a.summary||'';
+  document.getElementById('img-levels').innerHTML=[
+    ['Entry',a.entry||'—','var(--accent)'],
+    ['Stop Loss',a.sl||'—','var(--bear)'],
+    ['Take Profit',a.tp||'—','var(--bull)'],
+    ['R:R','1 : '+(a.rr||'?'),parseFloat(a.rr)>=2?'var(--bull)':'var(--gold)'],
+    ['Trend',a.trend||'—',a.trend==='BULLISH'?'var(--bull)':a.trend==='BEARISH'?'var(--bear)':'var(--textDim)'],
+  ].map(([l,v,c])=>indRow(l,v,c)).join('');
+  const patterns=a.patterns||[],levels=a.key_levels||[],inds=a.indicators_visible||[];
+  let patHtml=patterns.map(p=>`<span class="pattern-tag">📐 ${p}</span>`).join('');
+  patHtml+=levels.slice(0,3).map(l=>`<span class="pattern-tag" style="color:var(--gold);border-color:var(--gold)44">📍 ${l}</span>`).join('');
+  patHtml+=inds.slice(0,2).map(i=>`<span class="pattern-tag" style="color:var(--text);border-color:var(--textDim)44">📊 ${i}</span>`).join('');
+  document.getElementById('img-patterns').innerHTML=patHtml||'<div style="font-size:9px;color:var(--textDim)">No specific patterns identified.</div>';
+  // Store for loading into form
+  window._imgAnalysis=a;
+  document.getElementById('img-result-card').style.display='block';
+}
+function loadImgToForm(){
+  const a=window._imgAnalysis;if(!a)return;
+  navTo('signals');
+  const entry=parseFloat(a.entry)||0,sl=parseFloat(a.sl)||0,tp=parseFloat(a.tp)||0;
+  if(entry)document.getElementById('sig-entry').value=entry;
+  if(sl)document.getElementById('sig-sl').value=sl;
+  if(tp)document.getElementById('sig-tp').value=tp;
+  setDir(a.signal==='SELL'?'SELL':'BUY');
+  updateSigPreview();
+  addLog('Image analysis loaded into signal form','ai');
+}
+
 window.addEventListener('load',init);
 window.addEventListener('resize',()=>{
   if(document.getElementById('page-chart').classList.contains('active'))drawCharts();
