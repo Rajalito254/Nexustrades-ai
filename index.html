@@ -1,13 +1,16 @@
+Here is an HTML document that creates a professional, AI-powered trading dashboard with a live market scanner, intelligent chat analysis, and a session-aware layout.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>NEXUS/TRADE | Professional Trading Dashboard</title>
-  <!-- Google Fonts + Font Awesome Icons -->
+  <title>NEXUS/TRADE · AI INTELLIGENT SCANNER | Live Forex Analysis</title>
+  <!-- Google Fonts + Font Awesome 6 -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Chart.js CDN for sleek mini chart preview -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     * {
@@ -17,623 +20,592 @@
     }
 
     body {
-      background: radial-gradient(circle at 20% 30%, #0a0f1e, #03060c);
+      background: radial-gradient(circle at 10% 20%, #050b14, #010101);
       font-family: 'Inter', sans-serif;
-      color: #eef2ff;
-      padding: 1.5rem;
+      color: #edf2fb;
+      padding: 1.2rem;
       min-height: 100vh;
     }
 
-    /* Glassmorphism container */
+    /* Main Dashboard Grid - FULL WIDE */
     .dashboard {
-      max-width: 1440px;
+      max-width: 1600px;
       margin: 0 auto;
-      background: rgba(12, 18, 28, 0.65);
-      backdrop-filter: blur(12px);
-      border-radius: 2rem;
-      border: 1px solid rgba(72, 187, 255, 0.2);
-      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      overflow: hidden;
-      transition: all 0.2s ease;
     }
 
-    /* header area */
+    /* header */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
-      background: rgba(2, 8, 18, 0.5);
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .logo-area {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      background: rgba(3, 10, 18, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(0, 255, 255, 0.2);
     }
 
     .logo {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #FFFFFF, #38bdf8);
+      background: linear-gradient(135deg, #ffffff, #0ff);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      letter-spacing: -0.02em;
     }
 
-    .badge {
-      background: rgba(56, 189, 248, 0.2);
-      border: 1px solid #38bdf8;
-      border-radius: 40px;
+    .live-badge {
+      background: #ff3b3b20;
+      border: 1px solid #ff5e5e;
+      border-radius: 30px;
       padding: 0.2rem 0.8rem;
       font-size: 0.7rem;
       font-weight: 600;
-      color: #7dd3fc;
+      animation: pulse 1.5s infinite;
     }
 
-    .time-indicator {
-      font-size: 0.85rem;
-      background: #111a28;
-      padding: 0.4rem 1rem;
-      border-radius: 2rem;
-      font-family: monospace;
-      letter-spacing: 0.5px;
-      border: 1px solid #2d3a4e;
+    @keyframes pulse {
+      0% { opacity: 0.6; box-shadow: 0 0 0 0 #ff5e5e80; }
+      70% { opacity: 1; box-shadow: 0 0 0 6px #ff5e5e00; }
+      100% { opacity: 0.6; }
     }
 
-    /* Category pills */
-    .category-nav {
-      padding: 1rem 2rem 0 2rem;
+    /* 2-COLUMN MAIN: LEFT (Scanner + Table) | RIGHT (AI CHAT SCANNER) */
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 1.5rem;
+    }
+
+    /* LEFT SIDE: live market scanner + table + sessions row */
+    .left-scanner-area {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    /* Live Sessions bar */
+    .sessions-bar {
+      background: rgba(0, 10, 22, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 1.2rem;
+      padding: 0.8rem 1.2rem;
+      border: 1px solid #2c4b6e;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .session-tag {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
-      border-bottom: 1px solid rgba(72, 187, 255, 0.15);
     }
 
-    .cat-btn {
-      background: transparent;
-      border: none;
+    .session {
+      font-size: 0.75rem;
       font-weight: 600;
-      font-size: 1rem;
-      padding: 0.6rem 1.4rem;
+      padding: 0.3rem 0.9rem;
       border-radius: 40px;
-      color: #9ca3af;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'Inter', sans-serif;
-      backdrop-filter: blur(4px);
+      background: #111e2a;
     }
 
-    .cat-btn i {
-      margin-right: 8px;
-      font-size: 0.9rem;
+    .session.active-live {
+      background: #00cc8822;
+      border-left: 3px solid #0f6;
+      color: #9effcf;
     }
 
-    .cat-btn.active {
-      background: linear-gradient(105deg, #0f2b3d, #0a1a2c);
-      color: white;
-      box-shadow: 0 4px 12px rgba(0, 160, 255, 0.2);
-      border: 1px solid rgba(56, 189, 248, 0.6);
+    .live-clock {
+      font-family: monospace;
+      font-size: 0.85rem;
+      background: #00000055;
+      padding: 0.3rem 1rem;
+      border-radius: 2rem;
     }
 
-    .cat-btn:hover:not(.active) {
-      background: rgba(56, 189, 248, 0.1);
-      color: #cbd5e6;
-    }
-
-    /* Main grid: left table + right sidebar */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 1.5rem;
-      padding: 1.8rem 2rem 2rem 2rem;
-    }
-
-    /* Table styling - professional & clean */
-    .assets-table-wrapper {
-      background: rgba(2, 8, 18, 0.6);
+    /* Table styling - professional clean */
+    .table-wrapper {
+      background: rgba(2, 8, 18, 0.75);
       border-radius: 1.5rem;
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      border: 1px solid rgba(0, 255, 255, 0.25);
       overflow-x: auto;
-      backdrop-filter: blur(4px);
     }
 
     .market-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.85rem;
-      min-width: 580px;
     }
 
     .market-table th {
       text-align: left;
-      padding: 1rem 1rem 0.8rem 1rem;
+      padding: 1rem 1rem;
+      color: #8bb3dd;
       font-weight: 600;
-      color: #9cb4d4;
-      letter-spacing: 0.3px;
-      border-bottom: 1px solid rgba(72, 187, 255, 0.3);
-      font-size: 0.75rem;
-      text-transform: uppercase;
+      border-bottom: 1px solid #2c4766;
     }
 
     .market-table td {
-      padding: 1rem 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      font-weight: 500;
-      transition: background 0.15s;
-    }
-
-    .market-table tr:hover td {
-      background: rgba(56, 189, 248, 0.08);
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid rgba(72, 187, 255, 0.1);
     }
 
     .pair-name {
       font-weight: 700;
-      font-size: 0.9rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 0.6rem;
     }
 
-    .pair-name i {
-      font-size: 1rem;
-      color: #38bdf8;
-    }
-
-    .price-positive {
-      color: #2dd4bf;
-      font-weight: 600;
-    }
-
-    .price-negative {
-      color: #f87171;
-      font-weight: 600;
-    }
-
-    .signal-badge {
-      background: #1e2a3a;
-      padding: 0.25rem 0.7rem;
+    .price-up { color: #2dd4bf; font-weight: 700; }
+    .price-down { color: #f97373; font-weight: 700; }
+    .signal-cell {
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.7rem;
       border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      width: fit-content;
-      letter-spacing: 0.3px;
+      display: inline-block;
     }
+    .signal-buy { background: #0b3b2f; color: #5effbc; border-left: 3px solid #0f6; }
+    .signal-sell { background: #3e1e2a; color: #ff9e9e; border-left: 3px solid #ff5e5e; }
+    .signal-neutral { background: #2a2f3a; color: #cbd5e6; }
 
-    .signal-buy {
-      background: rgba(45, 212, 191, 0.2);
-      color: #2dd4bf;
-      border-left: 3px solid #2dd4bf;
-    }
-
-    .signal-sell {
-      background: rgba(248, 113, 113, 0.2);
-      color: #f87171;
-      border-left: 3px solid #f87171;
-    }
-
-    .signal-neutral {
-      background: rgba(156, 163, 175, 0.2);
-      color: #cbd5e1;
-    }
-
-    /* Right panel professional cards */
-    .right-panel {
+    /* ========= AI CHAT SCANNER (BIG INTELLIGENT PANEL) ========= */
+    .ai-chat-scanner {
+      background: linear-gradient(145deg, #07121f, #01060e);
+      border-radius: 1.8rem;
+      border: 1px solid #2b6f9e;
+      box-shadow: 0 15px 35px rgba(0, 200, 255, 0.2);
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      backdrop-filter: blur(12px);
+      height: fit-content;
+      min-height: 680px;
     }
 
-    .glass-card {
-      background: rgba(8, 14, 24, 0.75);
-      backdrop-filter: blur(8px);
-      border-radius: 1.5rem;
-      border: 1px solid rgba(56, 189, 248, 0.2);
+    .ai-header {
       padding: 1.2rem;
-      transition: all 0.2s;
-    }
-
-    .card-title {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-      color: #7e95b5;
-      margin-bottom: 1rem;
+      background: #0a1424aa;
+      border-bottom: 1px solid #0ff33;
+      border-radius: 1.8rem 1.8rem 0 0;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 0.8rem;
     }
 
-    .ai-scan-content {
+    .ai-icon {
+      font-size: 2rem;
+      filter: drop-shadow(0 0 6px cyan);
+    }
+
+    .ai-title {
+      font-weight: 800;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #aaffff, #6c8eff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      max-height: 460px;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
 
-    .ai-insight {
-      background: #07111e;
-      border-radius: 1rem;
-      padding: 0.8rem;
-      border-left: 4px solid #38bdf8;
+    .message {
+      border-radius: 1.2rem;
+      padding: 0.9rem;
+      animation: fadeSlide 0.2s ease;
     }
 
-    .insight-text {
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 0.3rem;
+    .ai-msg {
+      background: #0c1628;
+      border-left: 5px solid #0ff;
+      color: #eef5ff;
     }
 
-    .confidence {
-      font-size: 0.7rem;
-      color: #8aa0bc;
+    .user-msg {
+      background: #16212e;
+      border-right: 5px solid #ffbb44;
+      align-self: flex-end;
+      width: 90%;
     }
 
-    .sessions-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .session-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      padding: 0.4rem 0;
-      border-bottom: 1px dashed rgba(255,255,255,0.1);
-    }
-
-    .risk-meter {
-      background: #0f1622;
-      border-radius: 1rem;
-      padding: 0.8rem;
-      text-align: center;
-    }
-
-    .risk-value {
-      font-size: 1.6rem;
+    .msg-pair {
       font-weight: 800;
-      color: #facc15;
+      color: #5ee0fa;
     }
 
-    .mt5-link {
+    .entry-level {
+      font-family: monospace;
+      background: #00000055;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+    }
+
+    .tp-sl {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(95deg, #0c1624, #03070f);
-      border-radius: 1rem;
-      padding: 0.8rem 1rem;
+      gap: 1rem;
+      font-size: 0.75rem;
       margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .ai-input-area {
+      padding: 1rem;
+      border-top: 1px solid #2b5f7a;
+      display: flex;
+      gap: 0.6rem;
+      background: #030a12;
+      border-radius: 0 0 1.8rem 1.8rem;
+    }
+
+    #aiUserInput {
+      flex: 1;
+      background: #0f1a28;
+      border: 1px solid #3e6a8c;
+      border-radius: 2rem;
+      padding: 0.8rem 1.2rem;
+      color: white;
+      font-family: 'Inter', monospace;
+      outline: none;
+    }
+
+    .send-btn {
+      background: #0ff22d;
+      border: none;
+      width: 42px;
+      border-radius: 40px;
+      color: #000;
+      font-weight: bold;
       cursor: pointer;
       transition: 0.2s;
-      border: 1px solid #2a3a55;
     }
 
-    .mt5-link:hover {
-      background: #0f1a2c;
-      border-color: #38bdf8;
-    }
-
-    /* mini chart container */
-    .mini-chart-container {
+    /* risk indicator, extra widgets */
+    .extra-stats {
       margin-top: 0.8rem;
-      height: 80px;
-      position: relative;
-    }
-
-    canvas#previewChart {
-      max-height: 70px;
-      width: 100%;
-    }
-
-    .footer-note {
-      padding: 1rem 2rem 1.5rem;
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      background: #030c18;
+      padding: 0.6rem;
+      border-radius: 1rem;
       font-size: 0.7rem;
-      color: #5f7a9a;
-      border-top: 1px solid rgba(72, 187, 255, 0.1);
     }
 
-    @media (max-width: 880px) {
-      .main-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-      }
-      body {
-        padding: 1rem;
-      }
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    @media (max-width: 1000px) {
+      .two-columns { grid-template-columns: 1fr; }
+      .ai-chat-scanner { min-height: 500px; }
     }
 
-    button, .mt5-link {
-      cursor: pointer;
+    .glow-text {
+      text-shadow: 0 0 5px cyan;
     }
   </style>
 </head>
 <body>
 <div class="dashboard">
   <div class="header">
-    <div class="logo-area">
-      <span class="logo">NEXUS/TRADE</span>
-      <span class="badge"><i class="fas fa-shield-alt"></i> LIVE</span>
-    </div>
-    <div class="time-indicator" id="liveTime">
-      <i class="far fa-clock"></i> Loading...
-    </div>
+    <div><span class="logo">⚡ NEXUS/TRADE</span> <span class="live-badge"><i class="fas fa-circle" style="font-size: 0.5rem; color:#0f6;"></i> LIVE AI SCANNER</span></div>
+    <div class="live-clock" id="liveClock"><i class="far fa-clock"></i> --:--:-- UTC</div>
   </div>
 
-  <!-- Category Buttons (FOREX, CRYPTO, FUTURES) -->
-  <div class="category-nav">
-    <button class="cat-btn active" data-category="forex"><i class="fas fa-chart-line"></i> FOREX</button>
-    <button class="cat-btn" data-category="crypto"><i class="fab fa-bitcoin"></i> CRYPTO</button>
-    <button class="cat-btn" data-category="futures"><i class="fas fa-chart-simple"></i> FUTURES</button>
-  </div>
-
-  <div class="main-grid">
-    <!-- LEFT: Table with PAIR, PRICE, CHG%, SIG -->
-    <div class="assets-table-wrapper">
-      <table class="market-table" id="marketTable">
-        <thead>
-          <tr><th>PAIR</th><th>PRICE</th><th>CHG%</th><th>SIG</th></tr>
-        </thead>
-        <tbody id="tableBody">
-          <!-- dynamic rows injected -->
-        </tbody>
-      </table>
-    </div>
-
-    <!-- RIGHT: professional widgets -->
-    <div class="right-panel">
-      <!-- SCANNER + CHART combined widget -->
-      <div class="glass-card">
-        <div class="card-title"><i class="fas fa-chart-simple"></i> SCANNER · CHART PREVIEW</div>
-        <div style="font-size:0.75rem; color:#b9d0f0;">EUR/USD momentum</div>
-        <div class="mini-chart-container">
-          <canvas id="previewChart" width="300" height="70" style="width:100%; height:70px;"></canvas>
+  <div class="two-columns">
+    <!-- LEFT PANEL: LIVE SCANNER + TABLE + SESSIONS -->
+    <div class="left-scanner-area">
+      <!-- SESSIONS LIVE DISPLAY -->
+      <div class="sessions-bar">
+        <div class="session-tag" id="sessionContainer">
+          <span class="session" data-sess="london"><i class="fas fa-city"></i> LONDON</span>
+          <span class="session" data-sess="newyork"><i class="fas fa-chart-line"></i> NEW YORK</span>
+          <span class="session" data-sess="tokyo"><i class="fas fa-moon"></i> TOKYO</span>
+          <span class="session" data-sess="sydney"><i class="fas fa-globe"></i> SYDNEY</span>
         </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size:0.7rem;">
-          <span><i class="fas fa-waveform"></i> Volume: 2.4k</span>
-          <span><i class="fas fa-arrow-trend-up"></i> RSI: 64</span>
-        </div>
+        <div><i class="fas fa-waveform"></i> <span id="volatilityTag">HIGH MOMENTUM</span></div>
       </div>
 
-      <!-- AI SCAN card -->
-      <div class="glass-card">
-        <div class="card-title"><i class="fas fa-microchip"></i> AI SCAN · INSIGHTS</div>
-        <div class="ai-scan-content">
-          <div class="ai-insight">
-            <div class="insight-text">🤖 Bullish divergence detected on BTC/USD</div>
-            <div class="confidence">Confidence: 87% · Momentum increasing</div>
-          </div>
-          <div class="ai-insight">
-            <div class="insight-text">📊 Neural net suggests EUR/GBP reversal</div>
-            <div class="confidence">Short-term probability: 72%</div>
-          </div>
-          <div class="ai-insight">
-            <div class="insight-text">⚡ Gold (XAU/USD) forming accumulation zone</div>
-            <div class="confidence">AI rating: STRONG BUY</div>
-          </div>
-        </div>
+      <!-- MARKET SCANNER TABLE -->
+      <div class="table-wrapper">
+        <table class="market-table" id="marketTable">
+          <thead>
+            <tr><th>PAIR</th><th>PRICE</th><th>CHG%</th><th>SIGNAL</th><th>AI ENTRY/TP/SL</th></tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- JS injected -->
+          </tbody>
+        </table>
       </div>
-
-      <!-- SESSIONS + RISK section -->
-      <div class="glass-card">
-        <div class="card-title"><i class="fas fa-globe-americas"></i> SESSIONS · RISK</div>
-        <div class="sessions-list">
-          <div class="session-item"><span><i class="fas fa-sun"></i> London</span><span>08:00 - 17:00</span><span class="price-positive">● Active</span></div>
-          <div class="session-item"><span><i class="fas fa-city"></i> New York</span><span>13:00 - 22:00</span><span class="price-negative">● Closed</span></div>
-          <div class="session-item"><span><i class="fas fa-moon"></i> Tokyo</span><span>00:00 - 09:00</span><span>● Pre-open</span></div>
-        </div>
-        <div class="risk-meter">
-          <div><i class="fas fa-gauge-high"></i> Portfolio Risk Exposure</div>
-          <div class="risk-value">MEDIUM <span style="font-size:0.8rem;">(42%)</span></div>
-          <div style="background:#192433; height:6px; width:100%; border-radius:10px; margin-top:6px;"><div style="width:42%; background:#facc15; height:6px; border-radius:10px;"></div></div>
-        </div>
-      </div>
-
-      <!-- MT5 Integration button -->
-      <div class="mt5-link" id="mt5Button">
-        <span><i class="fab fa-google-wallet"></i> MetaTrader 5</span>
-        <span><i class="fas fa-arrow-right"></i> LAUNCH TERMINAL</span>
+      <div class="extra-stats">
+        <span><i class="fas fa-microchip"></i> AI SCAN FREQ: 2.4s</span>
+        <span><i class="fas fa-chart-simple"></i> MARKET DEPTH: ACTIVE</span>
+        <span><i class="fas fa-bolt"></i> LIQUIDITY: HIGH</span>
       </div>
     </div>
-  </div>
-  <div class="footer-note">
-    <i class="fas fa-chart-line"></i> Real-time simulated data · NEXUS AI engine · Low latency infrastructure
+
+    <!-- RIGHT PANEL: BIG INTELLIGENT AI CHAT SCANNER (FOREX ANALYSIS + ENTRY/SL/TP) -->
+    <div class="ai-chat-scanner">
+      <div class="ai-header">
+        <div class="ai-icon"><i class="fas fa-brain"></i></div>
+        <div class="ai-title">NEXUS AI · INTELLIGENT CHAT SCANNER</div>
+        <div style="margin-left: auto; font-size: 0.7rem; background:#0b2f44; padding:0.2rem 0.6rem; border-radius:20px;">GPT ANALYTICS</div>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message ai-msg">
+          <i class="fas fa-robot"></i> <strong>AI Analyst:</strong> Welcome to live trading scanner. I analyze real-time forex pairs, provide ENTRY, Stop Loss, TP1 & TP2. Ask me about EURUSD, GBPJPY or any pair!<br>
+          <span style="font-size:0.7rem;">⚡ Current market sentiment: <span style="color:#0ff;">BULLISH on USD</span> | Volatility elevated</span>
+        </div>
+        <div class="message ai-msg" id="defaultSuggestionMsg">
+          <strong>🔥 LIVE SIGNAL (EUR/USD):</strong> ENTRY: 1.0878 | SL: 1.0842 | TP1: 1.0912 | TP2: 1.0945<br>
+          <span style="font-size:0.7rem;">RSI = 62 | Momentum buy zone</span>
+        </div>
+      </div>
+      <div class="ai-input-area">
+        <input type="text" id="aiUserInput" placeholder="Ask AI: e.g., 'Analyze GBPUSD', 'Give me entry for USDJPY', 'Show TP/SL for Gold'" autocomplete="off">
+        <button class="send-btn" id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+      <div style="padding: 0.5rem 1rem 1rem 1rem; font-size:0.65rem; color:#6d8fae; border-top:1px solid #1a3550;">
+        <i class="fas fa-chart-line"></i> AI real-time technical + orderflow insights
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-  // ---------- PROFESSIONAL DATA SETS (FOREX, CRYPTO, FUTURES) ----------
-  const marketData = {
-    forex: [
-      { pair: "EUR/USD", price: 1.08762, chg: 0.23, signal: "BUY", signalType: "buy" },
-      { pair: "GBP/USD", price: 1.26845, chg: -0.12, signal: "SELL", signalType: "sell" },
-      { pair: "USD/JPY", price: 149.32, chg: 0.08, signal: "HOLD", signalType: "neutral" },
-      { pair: "AUD/USD", price: 0.6589, chg: 0.31, signal: "BUY", signalType: "buy" },
-      { pair: "USD/CAD", price: 1.3542, chg: -0.05, signal: "SELL", signalType: "sell" }
-    ],
-    crypto: [
-      { pair: "BTC/USD", price: 62458.20, chg: 2.45, signal: "STRONG BUY", signalType: "buy" },
-      { pair: "ETH/USD", price: 3421.75, chg: 1.12, signal: "BUY", signalType: "buy" },
-      { pair: "SOL/USD", price: 142.33, chg: -0.78, signal: "HOLD", signalType: "neutral" },
-      { pair: "XRP/USD", price: 0.612, chg: 0.45, signal: "BUY", signalType: "buy" },
-      { pair: "ADA/USD", price: 0.458, chg: -1.23, signal: "SELL", signalType: "sell" }
-    ],
-    futures: [
-      { pair: "ES (S&P500)", price: 5124.50, chg: 0.65, signal: "BUY", signalType: "buy" },
-      { pair: "NQ (Nasdaq)", price: 18120.25, chg: 1.02, signal: "BUY", signalType: "buy" },
-      { pair: "CL (Oil)", price: 78.43, chg: -0.34, signal: "SELL", signalType: "sell" },
-      { pair: "GC (Gold)", price: 2356.80, chg: 0.77, signal: "BUY", signalType: "buy" },
-      { pair: "HG (Copper)", price: 4.112, chg: -0.22, signal: "NEUTRAL", signalType: "neutral" }
-    ]
-  };
+  // ==================== REAL-TIME SIMULATED DATA (FOREX + INDICES/CRYPTO HYBRID) ====================
+  const forexPairs = [
+    { pair: "EUR/USD", basePrice: 1.0876, spread: 0.0002, trend: 0.3 },
+    { pair: "GBP/USD", basePrice: 1.2685, spread: 0.0003, trend: -0.15 },
+    { pair: "USD/JPY", basePrice: 149.32, spread: 0.05, trend: 0.22 },
+    { pair: "AUD/USD", basePrice: 0.6589, spread: 0.0002, trend: 0.42 },
+    { pair: "USD/CAD", basePrice: 1.3545, spread: 0.00025, trend: -0.08 },
+    { pair: "GBP/JPY", basePrice: 189.45, spread: 0.12, trend: 0.55 },
+    { pair: "XAU/USD", basePrice: 2356.80, spread: 0.8, trend: 0.47 }
+  ];
 
-  // Helper: format price with correct decimals
-  function formatPrice(pair, price) {
-    if (pair.includes("JPY")) return price.toFixed(2);
-    if (pair.includes("BTC") || pair.includes("ETH") || pair.includes("SOL")) return price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-    if (typeof price === 'number' && (pair.includes("ES") || pair.includes("NQ") || pair.includes("CL") || pair.includes("GC"))) return price.toFixed(2);
-    if (price > 1000) return price.toLocaleString(undefined, {minimumFractionDigits: 2});
-    return price.toFixed(4);
+  // Helper to generate live price fluctuations
+  let lastPrices = {};
+  function initPrices() {
+    forexPairs.forEach(p => { lastPrices[p.pair] = p.basePrice; });
+  }
+  initPrices();
+
+  function updateLivePrices() {
+    forexPairs.forEach(p => {
+      let volatility = (Math.random() - 0.5) * (p.pair.includes("JPY") ? 0.12 : (p.pair.includes("XAU") ? 2.4 : 0.0008));
+      let newPrice = lastPrices[p.pair] + volatility + (p.trend / 500);
+      if (p.pair === "USD/JPY") newPrice = Math.max(147, Math.min(152, newPrice));
+      if (p.pair === "XAU/USD") newPrice = Math.max(2320, Math.min(2400, newPrice));
+      lastPrices[p.pair] = parseFloat(newPrice.toFixed(p.pair.includes("JPY") ? 2 : (p.pair.includes("XAU") ? 2 : 4)));
+    });
   }
 
-  function renderTable(category) {
-    const data = marketData[category];
-    if (!data) return;
+  function getSignal(changePercent, pair) {
+    if (changePercent > 0.12) return { type: "BUY 🔥", class: "signal-buy" };
+    if (changePercent < -0.12) return { type: "SELL ⚡", class: "signal-sell" };
+    return { type: "HOLD", class: "signal-neutral" };
+  }
+
+  // Generate AI Entry, SL, TP1, TP2 based on price and direction
+  function getAITradeLevels(pair, price, signalType) {
+    let isBuy = signalType.includes("BUY");
+    let atr = (pair.includes("JPY")) ? 0.35 : (pair.includes("XAU") ? 12 : 0.0025);
+    let entry = price;
+    let sl, tp1, tp2;
+    if (isBuy) {
+      sl = parseFloat((price - atr * 1.2).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
+      tp1 = parseFloat((price + atr * 1.8).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
+      tp2 = parseFloat((price + atr * 2.8).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
+    } else {
+      sl = parseFloat((price + atr * 1.2).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
+      tp1 = parseFloat((price - atr * 1.6).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
+      tp2 = parseFloat((price - atr * 2.5).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
+    }
+    return { entry: entry, sl: sl, tp1: tp1, tp2: tp2 };
+  }
+
+  function renderMarketTable() {
     const tbody = document.getElementById('tableBody');
     tbody.innerHTML = '';
-    data.forEach(item => {
+    forexPairs.forEach(p => {
+      const currentPrice = lastPrices[p.pair];
+      const changePercent = ((currentPrice - p.basePrice) / p.basePrice * 100).toFixed(2);
+      const signalObj = getSignal(parseFloat(changePercent), p.pair);
+      const signalTypeRaw = signalObj.type;
+      const tradeLevels = getAITradeLevels(p.pair, currentPrice, signalTypeRaw);
+      
       const row = tbody.insertRow();
-      // Pair cell with icon
+      // Pair
       const pairCell = row.insertCell(0);
-      let iconClass = "fa-solid fa-coins";
-      if (category === 'forex') iconClass = "fa-solid fa-dollar-sign";
-      else if (category === 'crypto') iconClass = "fa-brands fa-bitcoin";
-      else iconClass = "fa-solid fa-chart-line";
-      pairCell.innerHTML = `<div class="pair-name"><i class="${iconClass}" style="opacity:0.8"></i> ${item.pair}</div>`;
-      
-      // Price cell
+      pairCell.innerHTML = `<div class="pair-name"><i class="fas fa-chart-line"></i> ${p.pair}</div>`;
+      // Price
       const priceCell = row.insertCell(1);
-      priceCell.innerHTML = `<span class="price-value">${formatPrice(item.pair, item.price)}</span>`;
-      
-      // Change % cell with color
+      priceCell.innerHTML = `<span class="${changePercent >=0 ? 'price-up' : 'price-down'}">${currentPrice.toFixed(p.pair.includes('JPY')?2:(p.pair.includes('XAU')?2:4))}</span>`;
+      // Change %
       const chgCell = row.insertCell(2);
-      const chgValue = item.chg;
-      const chgClass = chgValue >= 0 ? 'price-positive' : 'price-negative';
-      const arrow = chgValue >= 0 ? '▲' : '▼';
-      chgCell.innerHTML = `<span class="${chgClass}">${arrow} ${Math.abs(chgValue).toFixed(2)}%</span>`;
-      
+      const arrow = changePercent >=0 ? '▲' : '▼';
+      chgCell.innerHTML = `<span class="${changePercent>=0?'price-up':'price-down'}">${arrow} ${Math.abs(changePercent)}%</span>`;
       // Signal cell
       const sigCell = row.insertCell(3);
-      let sigClass = 'signal-badge ';
-      if (item.signalType === 'buy') sigClass += 'signal-buy';
-      else if (item.signalType === 'sell') sigClass += 'signal-sell';
-      else sigClass += 'signal-neutral';
-      sigCell.innerHTML = `<div class="${sigClass}">${item.signal}</div>`;
+      sigCell.innerHTML = `<span class="signal-cell ${signalObj.class}">${signalObj.type}</span>`;
+      // AI ENTRY/TP/SL formatted
+      const levelCell = row.insertCell(4);
+      levelCell.style.fontSize = "0.7rem";
+      levelCell.innerHTML = `<div style="font-family: monospace;">E: ${tradeLevels.entry} | SL: ${tradeLevels.sl}<br>TP1: ${tradeLevels.tp1} | TP2: ${tradeLevels.tp2}</div>`;
     });
   }
 
-  // --- Chart.js mini chart for visual upgrade (preview chart - dynamic to current category?)
-  let chartInstance = null;
-  function initMiniChart() {
-    const ctx = document.getElementById('previewChart').getContext('2d');
-    // generate random realistic price movement
-    const labels = ['', '', '', '', '', ''];
-    const dummyData = [1.084, 1.0852, 1.0838, 1.0865, 1.0876, 1.0881];
-    chartInstance = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          data: dummyData,
-          borderColor: '#38bdf8',
-          borderWidth: 2,
-          pointRadius: 0,
-          fill: true,
-          backgroundColor: 'rgba(56, 189, 248, 0.05)',
-          tension: 0.3,
-          pointBackgroundColor: '#38bdf8'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        scales: { x: { display: false }, y: { display: false, grid: { display: false } } },
-        elements: { line: { borderJoin: 'round' } }
+  // Live sessions detection (Forex market open hours UTC)
+  function updateLiveSessions() {
+    const now = new Date();
+    const utcHour = now.getUTCHours();
+    // session ranges UTC: Sydney 22-07, Tokyo 00-09, London 07-16, NewYork 12-21
+    const active = {
+      sydney: utcHour >= 22 || utcHour < 7,
+      tokyo: utcHour >= 0 && utcHour < 9,
+      london: utcHour >= 7 && utcHour < 16,
+      newyork: utcHour >= 12 && utcHour < 21
+    };
+    const sessions = document.querySelectorAll('.session');
+    sessions.forEach(s => {
+      const sessName = s.getAttribute('data-sess');
+      if (active[sessName]) {
+        s.classList.add('active-live');
+        s.style.opacity = '1';
+      } else {
+        s.classList.remove('active-live');
       }
     });
+    const volatilitySpan = document.getElementById('volatilityTag');
+    if (active.london && active.newyork) volatilitySpan.innerHTML = '🔥 OVERLAP · EXTREME VOLATILITY';
+    else if (active.london) volatilitySpan.innerHTML = '📈 LONDON SESSION · HIGH LIQUIDITY';
+    else if (active.newyork) volatilitySpan.innerHTML = '🗽 NY SESSION · STRONG MOVES';
+    else volatilitySpan.innerHTML = '🌏 ASIAN SESSION · RANGE BOUND';
   }
-  
-  function updateChartByCategory(category) {
-    // subtle dynamic change: based on category, update chart data for more lively feel
-    if (!chartInstance) return;
-    let newData = [];
-    if (category === 'forex') newData = [1.0842, 1.0855, 1.0848, 1.0871, 1.0879, 1.0884];
-    else if (category === 'crypto') newData = [61800, 62150, 62300, 62280, 62410, 62458];
-    else newData = [5100, 5112, 5108, 5122, 5124, 5124.5];
-    chartInstance.data.datasets[0].data = newData;
-    chartInstance.update();
+
+  // ************** INTELLIGENT AI CHAT SCANNER (Generates Entry, SL, TP1, TP2 for any pair) **************
+  function getAIAnalysisForPair(userPair) {
+    let normalized = userPair.toUpperCase().replace(/ /g, '');
+    let foundPair = forexPairs.find(p => p.pair === normalized);
+    if (!foundPair) {
+      // try to match similar
+      foundPair = forexPairs.find(p => normalized.includes(p.pair.replace('/', '')) || p.pair.includes(normalized));
+      if (!foundPair) return null;
+    }
+    const currentPrice = lastPrices[foundPair.pair];
+    const changePct = ((currentPrice - foundPair.basePrice) / foundPair.basePrice * 100).toFixed(2);
+    const signal = parseFloat(changePct) >= 0 ? "BUY" : "SELL";
+    const levels = getAITradeLevels(foundPair.pair, currentPrice, signal);
+    const reason = (signal === "BUY") ? "bullish momentum & support holding" : "resistance rejection & selling pressure";
+    return {
+      pair: foundPair.pair,
+      price: currentPrice,
+      direction: signal,
+      entry: levels.entry,
+      sl: levels.sl,
+      tp1: levels.tp1,
+      tp2: levels.tp2,
+      confidence: Math.floor(Math.random() * 20) + 75,
+      analysis: `RSI divergence + volume profile suggests ${signal.toLowerCase()} opportunity. Key level: ${signal === 'BUY' ? 'demand zone' : 'supply zone'}`
+    };
   }
-  
-  // --- Live time update (professional detail)
-  function updateClock() {
+
+  function addAIMessageToChat(content, isUser = false) {
+    const chatDiv = document.getElementById('chatMessages');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `message ${isUser ? 'user-msg' : 'ai-msg'}`;
+    if (isUser) {
+      msgDiv.innerHTML = `<i class="fas fa-user"></i> <strong>You:</strong> ${content}`;
+    } else {
+      msgDiv.innerHTML = content;
+    }
+    chatDiv.appendChild(msgDiv);
+    msgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function handleAIRequest(userMessage) {
+    const lowerMsg = userMessage.toLowerCase();
+    let responseHtml = '';
+    // detect pair: look for known forex symbols
+    let targetPair = null;
+    for (let p of forexPairs) {
+      if (lowerMsg.includes(p.pair.toLowerCase().replace('/', '')) || lowerMsg.includes(p.pair.toLowerCase())) {
+        targetPair = p.pair;
+        break;
+      }
+    }
+    if (targetPair) {
+      const analysis = getAIAnalysisForPair(targetPair);
+      if (analysis) {
+        responseHtml = `<i class="fas fa-brain"></i> <strong>AI SCANNER · ${analysis.pair}</strong><br>
+        📊 <span class="msg-pair">ENTRY: ${analysis.entry}</span> &nbsp;| 🛑 SL: ${analysis.sl}<br>
+        🎯 TP1: ${analysis.tp1} &nbsp;| 🎯 TP2: ${analysis.tp2}<br>
+        🔍 Direction: <span style="color:${analysis.direction === 'BUY' ? '#5effbc' : '#ff9e9e'}">${analysis.direction}</span> (${analysis.analysis})<br>
+        🤖 Confidence: ${analysis.confidence}% | Current Price: ${analysis.price}`;
+        addAIMessageToChat(responseHtml, false);
+        return;
+      }
+    }
+    // fallback generic entry generation
+    if (lowerMsg.includes("entry") || lowerMsg.includes("signal") || lowerMsg.includes("tp") || lowerMsg.includes("sl")) {
+      const randomPair = forexPairs[Math.floor(Math.random() * forexPairs.length)];
+      const gen = getAIAnalysisForPair(randomPair.pair);
+      if (gen) {
+        responseHtml = `<i class="fas fa-chart-line"></i> <strong>LIVE SIGNAL (${gen.pair})</strong><br>
+        🟢 ENTRY: ${gen.entry} &nbsp; 🔴 SL: ${gen.sl}<br>
+        📈 TP1: ${gen.tp1} &nbsp; 📈 TP2: ${gen.tp2}<br>
+        💡 Insight: ${gen.analysis} | Market condition: trending.`;
+        addAIMessageToChat(responseHtml, false);
+        return;
+      }
+    }
+    // default smart answer
+    responseHtml = `<i class="fas fa-robot"></i> <strong>NEXUS AI:</strong> Use me as your live forex scanner! Ask: "Analyze EURUSD", "Give entry for GBPJPY", "Show TP/SL for Gold". I provide real-time Entry, Stop Loss, TP1, TP2 based on live volatility.`;
+    addAIMessageToChat(responseHtml, false);
+  }
+
+  // auto-refresh table + live data and send periodic market commentary
+  let intervalRefresh;
+  function startLiveUpdates() {
+    updateLivePrices();
+    renderMarketTable();
+    updateLiveSessions();
+    // also update the clock
     const now = new Date();
-    const formatted = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    document.getElementById('liveTime').innerHTML = `<i class="far fa-clock"></i> ${dateStr} · ${formatted} UTC`;
+    document.getElementById('liveClock').innerHTML = `<i class="far fa-clock"></i> ${now.toLocaleTimeString('en-GB', { hour12: false })} UTC`;
+    // each 3 seconds new AI insight about random pair optional? add to chat only if user not spamming, but we add one "market pulse" occasionally
   }
-  setInterval(updateClock, 1000);
-  updateClock();
-
-  // category switching logic
-  let currentCategory = 'forex';
-  const catButtons = document.querySelectorAll('.cat-btn');
-  function switchCategory(category) {
-    currentCategory = category;
-    renderTable(category);
-    updateChartByCategory(category);
-    // update active style
-    catButtons.forEach(btn => {
-      const btnCat = btn.getAttribute('data-category');
-      if (btnCat === category) btn.classList.add('active');
-      else btn.classList.remove('active');
-    });
-    // Also tweak the scanner text to reflect category
-    const scannerTitle = document.querySelector('.glass-card:first-child .card-title');
-    if(scannerTitle) {
-      let catName = category.charAt(0).toUpperCase() + category.slice(1);
-      scannerTitle.innerHTML = `<i class="fas fa-chart-simple"></i> SCANNER · ${catName} PREVIEW`;
-    }
-  }
+  setInterval(() => {
+    startLiveUpdates();
+  }, 2800);
   
-  catButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const category = btn.getAttribute('data-category');
-      if (category) switchCategory(category);
-    });
+  // additional real-time chat AI function
+  document.getElementById('sendChatBtn').addEventListener('click', () => {
+    const inputEl = document.getElementById('aiUserInput');
+    const msg = inputEl.value.trim();
+    if (msg === "") return;
+    addAIMessageToChat(msg, true);
+    handleAIRequest(msg);
+    inputEl.value = "";
   });
-  
-  // mt5 interactive alert
-  const mt5Btn = document.getElementById('mt5Button');
-  mt5Btn.addEventListener('click', () => {
-    alert("⚡ NEXUS/TRADE MT5 Bridge — Professional terminal would launch.\nIntegrated risk analytics & one-click trading.");
+  document.getElementById('aiUserInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') document.getElementById('sendChatBtn').click();
   });
-  
-  // initial rendering
-  renderTable('forex');
-  initMiniChart();
-  updateChartByCategory('forex');
 
-  // extra: Add a subtle hover effect on rows & risk indicator dynamic text (optional)
-  const style = document.createElement('style');
-  style.textContent = `
-    .market-table tr {
-      transition: background 0.1s;
-    }
-    .glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.5);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-    .mt5-link i {
-      transition: transform 0.2s;
-    }
-    .mt5-link:hover i {
-      transform: translateX(4px);
-    }
-  `;
-  document.head.appendChild(style);
-  
-  // accessibility / professional signal tooltip ?
-  console.log("NEXUS/TRADE dashboard active — high performance UI");
+  // initial call
+  startLiveUpdates();
+  // additional first AI greeting for extra entry example
+  setTimeout(() => {
+    addAIMessageToChat(`<i class="fas fa-chart-simple"></i> <strong>🔥 REAL-TIME AI SCANNER ACTIVE 🔥</strong><br>Latest <strong>GBP/JPY</strong> Analysis: ENTRY: 189.62 | SL: 188.90 | TP1: 190.45 | TP2: 191.20<br>Market sessions: LONDON/NY overlap increases volatility. Use chat to get custom entries.`, false);
+  }, 1500);
 </script>
 </body>
 </html>
+```
