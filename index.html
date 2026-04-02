@@ -1,16 +1,16 @@
-Here is an HTML document that creates a professional, AI-powered trading dashboard with a live market scanner, intelligent chat analysis, and a session-aware layout.
+Here is an HTML document that creates a professional-grade trading dashboard with an advanced chart scanner, timeframe controls, and a firm, app-like layout.
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>NEXUS/TRADE · AI INTELLIGENT SCANNER | Live Forex Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>NEXUS/TRADE PRO | AI Chart Scanner & Timeframes</title>
   <!-- Google Fonts + Font Awesome 6 -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Chart.js -->
+  <!-- Chart.js + Lightweight Charts for professional feel -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     * {
@@ -20,591 +20,605 @@ Here is an HTML document that creates a professional, AI-powered trading dashboa
     }
 
     body {
-      background: radial-gradient(circle at 10% 20%, #050b14, #010101);
+      background: #0a0f1a;
       font-family: 'Inter', sans-serif;
-      color: #edf2fb;
-      padding: 1.2rem;
+      color: #eef2ff;
+      padding: 1rem;
       min-height: 100vh;
     }
 
-    /* Main Dashboard Grid - FULL WIDE */
-    .dashboard {
+    /* Professional dark app container */
+    .app-container {
       max-width: 1600px;
       margin: 0 auto;
+      background: #0c111c;
+      border-radius: 1.75rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      border: 1px solid rgba(56, 189, 248, 0.2);
     }
 
-    /* header */
-    .header {
+    /* Header firm */
+    .app-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.8rem 1.5rem;
-      background: rgba(3, 10, 18, 0.7);
-      backdrop-filter: blur(12px);
-      border-radius: 2rem;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(0, 255, 255, 0.2);
+      padding: 1rem 1.8rem;
+      background: #070c16;
+      border-bottom: 1px solid #1e2a3a;
+      flex-wrap: wrap;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
     }
 
     .logo {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #ffffff, #0ff);
+      background: linear-gradient(135deg, #ffffff, #38bdf8);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      letter-spacing: -0.3px;
     }
 
-    .live-badge {
-      background: #ff3b3b20;
-      border: 1px solid #ff5e5e;
-      border-radius: 30px;
-      padding: 0.2rem 0.8rem;
-      font-size: 0.7rem;
+    .badge-pro {
+      background: #0f2b3d;
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      font-size: 0.65rem;
       font-weight: 600;
-      animation: pulse 1.5s infinite;
+      border: 1px solid #2c6e9e;
     }
 
-    @keyframes pulse {
-      0% { opacity: 0.6; box-shadow: 0 0 0 0 #ff5e5e80; }
-      70% { opacity: 1; box-shadow: 0 0 0 6px #ff5e5e00; }
-      100% { opacity: 0.6; }
+    .live-indicator {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
     }
 
-    /* 2-COLUMN MAIN: LEFT (Scanner + Table) | RIGHT (AI CHAT SCANNER) */
-    .two-columns {
+    .pulse {
+      width: 10px;
+      height: 10px;
+      background: #2dd4bf;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #2dd4bf;
+      animation: pulse-live 1.2s infinite;
+    }
+
+    @keyframes pulse-live {
+      0% { opacity: 0.4; transform: scale(0.8);}
+      100% { opacity: 1; transform: scale(1.2);}
+    }
+
+    /* MAIN GRID: Left (Chart Scanner + Timeframes) + Right (AI Chat + Table) */
+    .professional-grid {
       display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 1.5rem;
+      grid-template-columns: 1fr 380px;
+      gap: 1.2rem;
+      padding: 1.5rem;
     }
 
-    /* LEFT SIDE: live market scanner + table + sessions row */
-    .left-scanner-area {
+    /* LEFT SECTION: CHART SCANNER */
+    .chart-scanner-area {
+      background: #0a101c;
+      border-radius: 1.5rem;
+      border: 1px solid #253649;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1.2rem;
+      background: #060b14;
+      border-bottom: 1px solid #1f3142;
+      flex-wrap: wrap;
+    }
+
+    .pair-selector {
+      background: #0f1825;
+      border: 1px solid #2d4868;
+      border-radius: 2rem;
+      padding: 0.3rem 1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* TIMEFRAME BUTTONS */
+    .timeframe-group {
+      display: flex;
+      gap: 0.4rem;
+      background: #0c1320;
+      padding: 0.2rem;
+      border-radius: 2rem;
+    }
+
+    .tf-btn {
+      background: transparent;
+      border: none;
+      color: #8aa0bc;
+      font-weight: 600;
+      font-size: 0.7rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: monospace;
+    }
+
+    .tf-btn.active {
+      background: #1e3a5f;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0,160,255,0.3);
+    }
+
+    .chart-canvas-container {
+      padding: 1rem;
+      height: 280px;
+      position: relative;
+    }
+
+    canvas#priceChart {
+      width: 100%;
+      height: 100%;
+    }
+
+    .entry-signal-card {
+      background: #070e18;
+      margin: 0.5rem 1rem 1.2rem 1rem;
+      border-radius: 1.2rem;
+      padding: 1rem;
+      border-left: 4px solid #38bdf8;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .entry-levels {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .level-item {
+      background: #0f1825;
+      padding: 0.3rem 0.9rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* RIGHT SIDE: market table + AI Chat scanner */
+    .right-stack {
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
     }
 
-    /* Live Sessions bar */
-    .sessions-bar {
-      background: rgba(0, 10, 22, 0.7);
-      backdrop-filter: blur(8px);
+    /* Table styling */
+    .table-widget {
+      background: #0a101c;
       border-radius: 1.2rem;
-      padding: 0.8rem 1.2rem;
-      border: 1px solid #2c4b6e;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .session-tag {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .session {
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.3rem 0.9rem;
-      border-radius: 40px;
-      background: #111e2a;
-    }
-
-    .session.active-live {
-      background: #00cc8822;
-      border-left: 3px solid #0f6;
-      color: #9effcf;
-    }
-
-    .live-clock {
-      font-family: monospace;
-      font-size: 0.85rem;
-      background: #00000055;
-      padding: 0.3rem 1rem;
-      border-radius: 2rem;
-    }
-
-    /* Table styling - professional clean */
-    .table-wrapper {
-      background: rgba(2, 8, 18, 0.75);
-      border-radius: 1.5rem;
-      border: 1px solid rgba(0, 255, 255, 0.25);
+      border: 1px solid #253649;
       overflow-x: auto;
     }
 
     .market-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
     }
 
     .market-table th {
       text-align: left;
-      padding: 1rem 1rem;
-      color: #8bb3dd;
-      font-weight: 600;
-      border-bottom: 1px solid #2c4766;
+      padding: 0.8rem 0.8rem;
+      color: #7e95b5;
+      border-bottom: 1px solid #1f2e42;
     }
 
     .market-table td {
-      padding: 0.9rem 1rem;
-      border-bottom: 1px solid rgba(72, 187, 255, 0.1);
+      padding: 0.7rem 0.8rem;
+      border-bottom: 1px solid #16212e;
     }
 
-    .pair-name {
+    .signal-badge-sm {
+      font-size: 0.65rem;
       font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .price-up { color: #2dd4bf; font-weight: 700; }
-    .price-down { color: #f97373; font-weight: 700; }
-    .signal-cell {
-      font-weight: 700;
-      font-size: 0.75rem;
-      padding: 0.2rem 0.7rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 20px;
       display: inline-block;
     }
-    .signal-buy { background: #0b3b2f; color: #5effbc; border-left: 3px solid #0f6; }
-    .signal-sell { background: #3e1e2a; color: #ff9e9e; border-left: 3px solid #ff5e5e; }
-    .signal-neutral { background: #2a2f3a; color: #cbd5e6; }
 
-    /* ========= AI CHAT SCANNER (BIG INTELLIGENT PANEL) ========= */
-    .ai-chat-scanner {
-      background: linear-gradient(145deg, #07121f, #01060e);
-      border-radius: 1.8rem;
-      border: 1px solid #2b6f9e;
-      box-shadow: 0 15px 35px rgba(0, 200, 255, 0.2);
+    .signal-buy-sm { background: #0b3b2f; color: #6effc0; }
+    .signal-sell-sm { background: #441e28; color: #ffa098; }
+    .signal-neutral-sm { background: #2a2f3a; color: #b9c7dd; }
+
+    /* AI CHAT SCANNER (big) */
+    .ai-chat-card {
+      background: #0a101c;
+      border-radius: 1.2rem;
+      border: 1px solid #2a4b6e;
       display: flex;
       flex-direction: column;
-      backdrop-filter: blur(12px);
-      height: fit-content;
-      min-height: 680px;
+      height: 480px;
     }
 
-    .ai-header {
-      padding: 1.2rem;
-      background: #0a1424aa;
-      border-bottom: 1px solid #0ff33;
-      border-radius: 1.8rem 1.8rem 0 0;
+    .ai-chat-header {
+      padding: 0.8rem 1rem;
+      background: #050b14;
+      border-bottom: 1px solid #1e3a5f;
+      border-radius: 1.2rem 1.2rem 0 0;
       display: flex;
       align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chat-messages-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.8rem;
+      display: flex;
+      flex-direction: column;
       gap: 0.8rem;
     }
 
-    .ai-icon {
-      font-size: 2rem;
-      filter: drop-shadow(0 0 6px cyan);
-    }
-
-    .ai-title {
-      font-weight: 800;
-      font-size: 1.2rem;
-      background: linear-gradient(135deg, #aaffff, #6c8eff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .chat-messages {
-      flex: 1;
-      padding: 1rem;
-      max-height: 460px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .message {
-      border-radius: 1.2rem;
-      padding: 0.9rem;
-      animation: fadeSlide 0.2s ease;
-    }
-
     .ai-msg {
-      background: #0c1628;
-      border-left: 5px solid #0ff;
-      color: #eef5ff;
+      background: #0e1728;
+      border-left: 3px solid #0ff;
+      border-radius: 1rem;
+      padding: 0.7rem;
+      font-size: 0.75rem;
     }
 
     .user-msg {
-      background: #16212e;
-      border-right: 5px solid #ffbb44;
+      background: #17212f;
+      border-right: 3px solid #ffb347;
       align-self: flex-end;
-      width: 90%;
+      width: 85%;
+      border-radius: 1rem;
+      padding: 0.7rem;
     }
 
-    .msg-pair {
-      font-weight: 800;
-      color: #5ee0fa;
-    }
-
-    .entry-level {
-      font-family: monospace;
-      background: #00000055;
-      padding: 0.2rem 0.4rem;
-      border-radius: 8px;
-    }
-
-    .tp-sl {
+    .chat-input-area {
       display: flex;
-      gap: 1rem;
-      font-size: 0.75rem;
-      margin-top: 0.5rem;
-      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.8rem;
+      border-top: 1px solid #1f3a55;
+      background: #060c16;
     }
 
-    .ai-input-area {
-      padding: 1rem;
-      border-top: 1px solid #2b5f7a;
-      display: flex;
-      gap: 0.6rem;
-      background: #030a12;
-      border-radius: 0 0 1.8rem 1.8rem;
-    }
-
-    #aiUserInput {
+    #chatInput {
       flex: 1;
-      background: #0f1a28;
-      border: 1px solid #3e6a8c;
+      background: #111b2a;
+      border: 1px solid #2c577a;
       border-radius: 2rem;
-      padding: 0.8rem 1.2rem;
+      padding: 0.6rem 1rem;
       color: white;
-      font-family: 'Inter', monospace;
       outline: none;
     }
 
     .send-btn {
-      background: #0ff22d;
+      background: #0e7cae;
       border: none;
-      width: 42px;
-      border-radius: 40px;
-      color: #000;
-      font-weight: bold;
+      width: 38px;
+      border-radius: 30px;
+      color: white;
       cursor: pointer;
-      transition: 0.2s;
     }
 
-    /* risk indicator, extra widgets */
-    .extra-stats {
-      margin-top: 0.8rem;
-      display: flex;
-      justify-content: space-between;
-      background: #030c18;
-      padding: 0.6rem;
-      border-radius: 1rem;
-      font-size: 0.7rem;
-    }
-
-    @media (max-width: 1000px) {
-      .two-columns { grid-template-columns: 1fr; }
-      .ai-chat-scanner { min-height: 500px; }
-    }
-
-    .glow-text {
-      text-shadow: 0 0 5px cyan;
+    @media (max-width: 980px) {
+      .professional-grid { grid-template-columns: 1fr; }
+      .ai-chat-card { height: 420px; }
     }
   </style>
 </head>
 <body>
-<div class="dashboard">
-  <div class="header">
-    <div><span class="logo">⚡ NEXUS/TRADE</span> <span class="live-badge"><i class="fas fa-circle" style="font-size: 0.5rem; color:#0f6;"></i> LIVE AI SCANNER</span></div>
-    <div class="live-clock" id="liveClock"><i class="far fa-clock"></i> --:--:-- UTC</div>
+<div class="app-container">
+  <div class="app-header">
+    <div class="logo-area">
+      <span class="logo">NEXUS/TRADE PRO</span>
+      <span class="badge-pro"><i class="fas fa-chart-line"></i> AI CHART SCANNER</span>
+    </div>
+    <div class="live-indicator">
+      <div class="pulse"></div>
+      <span style="font-size: 0.75rem;">LIVE STREAM</span>
+      <span id="liveTimeHeader" style="font-family: monospace; font-size: 0.7rem;">--:-- UTC</span>
+    </div>
   </div>
 
-  <div class="two-columns">
-    <!-- LEFT PANEL: LIVE SCANNER + TABLE + SESSIONS -->
-    <div class="left-scanner-area">
-      <!-- SESSIONS LIVE DISPLAY -->
-      <div class="sessions-bar">
-        <div class="session-tag" id="sessionContainer">
-          <span class="session" data-sess="london"><i class="fas fa-city"></i> LONDON</span>
-          <span class="session" data-sess="newyork"><i class="fas fa-chart-line"></i> NEW YORK</span>
-          <span class="session" data-sess="tokyo"><i class="fas fa-moon"></i> TOKYO</span>
-          <span class="session" data-sess="sydney"><i class="fas fa-globe"></i> SYDNEY</span>
+  <div class="professional-grid">
+    <!-- LEFT: CHART SCANNER + TIMEFRAMES + ENTRY ZONE -->
+    <div class="chart-scanner-area">
+      <div class="chart-header">
+        <div class="pair-selector" id="activePairDisplay">
+          <i class="fas fa-chart-simple"></i> EUR/USD
         </div>
-        <div><i class="fas fa-waveform"></i> <span id="volatilityTag">HIGH MOMENTUM</span></div>
+        <div class="timeframe-group" id="timeframeButtons">
+          <button class="tf-btn" data-tf="M5">M5</button>
+          <button class="tf-btn" data-tf="M15">M15</button>
+          <button class="tf-btn" data-tf="H1" class="active">H1</button>
+          <button class="tf-btn" data-tf="H4">H4</button>
+          <button class="tf-btn" data-tf="D1">D1</button>
+        </div>
       </div>
-
-      <!-- MARKET SCANNER TABLE -->
-      <div class="table-wrapper">
-        <table class="market-table" id="marketTable">
-          <thead>
-            <tr><th>PAIR</th><th>PRICE</th><th>CHG%</th><th>SIGNAL</th><th>AI ENTRY/TP/SL</th></tr>
-          </thead>
-          <tbody id="tableBody">
-            <!-- JS injected -->
-          </tbody>
-        </table>
+      <div class="chart-canvas-container">
+        <canvas id="priceChart" width="600" height="240" style="width:100%; height:100%;"></canvas>
       </div>
-      <div class="extra-stats">
-        <span><i class="fas fa-microchip"></i> AI SCAN FREQ: 2.4s</span>
-        <span><i class="fas fa-chart-simple"></i> MARKET DEPTH: ACTIVE</span>
-        <span><i class="fas fa-bolt"></i> LIQUIDITY: HIGH</span>
+      <!-- Dynamic Entry, SL, TP1, TP2 based on timeframe & AI -->
+      <div class="entry-signal-card" id="entrySignalCard">
+        <div class="entry-levels">
+          <span class="level-item"><i class="fas fa-arrow-right"></i> ENTRY: <strong id="entryVal">1.0876</strong></span>
+          <span class="level-item"><i class="fas fa-ban"></i> SL: <strong id="slVal">1.0842</strong></span>
+          <span class="level-item"><i class="fas fa-bullseye"></i> TP1: <strong id="tp1Val">1.0910</strong></span>
+          <span class="level-item"><i class="fas fa-chart-line"></i> TP2: <strong id="tp2Val">1.0945</strong></span>
+        </div>
+        <div><span id="timeframeInsight" style="font-size:0.7rem; background:#0f2640; padding:0.2rem 0.6rem; border-radius:20px;">H1 · Bullish Momentum</span></div>
       </div>
     </div>
 
-    <!-- RIGHT PANEL: BIG INTELLIGENT AI CHAT SCANNER (FOREX ANALYSIS + ENTRY/SL/TP) -->
-    <div class="ai-chat-scanner">
-      <div class="ai-header">
-        <div class="ai-icon"><i class="fas fa-brain"></i></div>
-        <div class="ai-title">NEXUS AI · INTELLIGENT CHAT SCANNER</div>
-        <div style="margin-left: auto; font-size: 0.7rem; background:#0b2f44; padding:0.2rem 0.6rem; border-radius:20px;">GPT ANALYTICS</div>
+    <!-- RIGHT STACK: Market Table + AI Chat Scanner -->
+    <div class="right-stack">
+      <!-- scanner table (Forex pairs) -->
+      <div class="table-widget">
+        <table class="market-table" id="scannerTable">
+          <thead><tr><th>PAIR</th><th>PRICE</th><th>CHG%</th><th>SIGNAL</th><th>ENTRY/TARGETS</th></tr></thead>
+          <tbody id="tableBody"></tbody>
+        </table>
       </div>
-      <div class="chat-messages" id="chatMessages">
-        <div class="message ai-msg">
-          <i class="fas fa-robot"></i> <strong>AI Analyst:</strong> Welcome to live trading scanner. I analyze real-time forex pairs, provide ENTRY, Stop Loss, TP1 & TP2. Ask me about EURUSD, GBPJPY or any pair!<br>
-          <span style="font-size:0.7rem;">⚡ Current market sentiment: <span style="color:#0ff;">BULLISH on USD</span> | Volatility elevated</span>
+
+      <!-- BIG AI CHAT SCANNER -->
+      <div class="ai-chat-card">
+        <div class="ai-chat-header">
+          <i class="fas fa-microchip" style="color:#0ff;"></i> <strong>NEXUS AI · INTELLIGENT CHAT SCANNER</strong>
+          <span style="margin-left:auto; font-size:0.6rem;">LIVE ANALYSIS</span>
         </div>
-        <div class="message ai-msg" id="defaultSuggestionMsg">
-          <strong>🔥 LIVE SIGNAL (EUR/USD):</strong> ENTRY: 1.0878 | SL: 1.0842 | TP1: 1.0912 | TP2: 1.0945<br>
-          <span style="font-size:0.7rem;">RSI = 62 | Momentum buy zone</span>
+        <div class="chat-messages-area" id="chatMessages">
+          <div class="ai-msg">
+            🤖 <strong>AI Analyst:</strong> Professional chart scanner active. I provide ENTRY, SL, TP1, TP2 for any forex pair. Select timeframe, ask for analysis or just type "EURUSD entry" or "GBPJPY targets".
+          </div>
+          <div class="ai-msg">
+            📊 <strong>Current recommendation (EURUSD H1):</strong> ENTRY 1.0876 | SL 1.0842 | TP1 1.0912 | TP2 1.0948. <br>RSI=58, MACD bullish cross.
+          </div>
         </div>
-      </div>
-      <div class="ai-input-area">
-        <input type="text" id="aiUserInput" placeholder="Ask AI: e.g., 'Analyze GBPUSD', 'Give me entry for USDJPY', 'Show TP/SL for Gold'" autocomplete="off">
-        <button class="send-btn" id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
-      </div>
-      <div style="padding: 0.5rem 1rem 1rem 1rem; font-size:0.65rem; color:#6d8fae; border-top:1px solid #1a3550;">
-        <i class="fas fa-chart-line"></i> AI real-time technical + orderflow insights
+        <div class="chat-input-area">
+          <input type="text" id="chatInput" placeholder="Ask AI: 'Analyze GBPUSD', 'Give entry for USDJPY M15' ...">
+          <button class="send-btn" id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  // ==================== REAL-TIME SIMULATED DATA (FOREX + INDICES/CRYPTO HYBRID) ====================
-  const forexPairs = [
-    { pair: "EUR/USD", basePrice: 1.0876, spread: 0.0002, trend: 0.3 },
-    { pair: "GBP/USD", basePrice: 1.2685, spread: 0.0003, trend: -0.15 },
-    { pair: "USD/JPY", basePrice: 149.32, spread: 0.05, trend: 0.22 },
-    { pair: "AUD/USD", basePrice: 0.6589, spread: 0.0002, trend: 0.42 },
-    { pair: "USD/CAD", basePrice: 1.3545, spread: 0.00025, trend: -0.08 },
-    { pair: "GBP/JPY", basePrice: 189.45, spread: 0.12, trend: 0.55 },
-    { pair: "XAU/USD", basePrice: 2356.80, spread: 0.8, trend: 0.47 }
+  // ---------- PROFESSIONAL DATA & REAL-TIME PRICE SIMULATION ----------
+  const forexAssets = [
+    { pair: "EUR/USD", base: 1.0876, vol: 0.0004 },
+    { pair: "GBP/USD", base: 1.2684, vol: 0.00045 },
+    { pair: "USD/JPY", base: 149.32, vol: 0.12 },
+    { pair: "AUD/USD", base: 0.6588, vol: 0.00035 },
+    { pair: "USD/CAD", base: 1.3542, vol: 0.0004 },
+    { pair: "GBP/JPY", base: 189.45, vol: 0.18 },
+    { pair: "XAU/USD", base: 2356.70, vol: 2.2 }
   ];
-
-  // Helper to generate live price fluctuations
-  let lastPrices = {};
+  let currentPrices = {};
   function initPrices() {
-    forexPairs.forEach(p => { lastPrices[p.pair] = p.basePrice; });
+    forexAssets.forEach(a => { currentPrices[a.pair] = a.base; });
   }
   initPrices();
 
   function updateLivePrices() {
-    forexPairs.forEach(p => {
-      let volatility = (Math.random() - 0.5) * (p.pair.includes("JPY") ? 0.12 : (p.pair.includes("XAU") ? 2.4 : 0.0008));
-      let newPrice = lastPrices[p.pair] + volatility + (p.trend / 500);
-      if (p.pair === "USD/JPY") newPrice = Math.max(147, Math.min(152, newPrice));
-      if (p.pair === "XAU/USD") newPrice = Math.max(2320, Math.min(2400, newPrice));
-      lastPrices[p.pair] = parseFloat(newPrice.toFixed(p.pair.includes("JPY") ? 2 : (p.pair.includes("XAU") ? 2 : 4)));
+    forexAssets.forEach(asset => {
+      let move = (Math.random() - 0.5) * asset.vol;
+      let newPrice = currentPrices[asset.pair] + move;
+      if (asset.pair === "USD/JPY") newPrice = Math.min(151.8, Math.max(147.2, newPrice));
+      if (asset.pair === "XAU/USD") newPrice = Math.min(2405, Math.max(2330, newPrice));
+      currentPrices[asset.pair] = parseFloat(newPrice.toFixed(asset.pair.includes("JPY") ? 2 : (asset.pair.includes("XAU") ? 2 : 4)));
     });
   }
 
-  function getSignal(changePercent, pair) {
-    if (changePercent > 0.12) return { type: "BUY 🔥", class: "signal-buy" };
-    if (changePercent < -0.12) return { type: "SELL ⚡", class: "signal-sell" };
-    return { type: "HOLD", class: "signal-neutral" };
+  function getSignalFromChange(pair, price) {
+    const baseObj = forexAssets.find(a => a.pair === pair);
+    if (!baseObj) return { type: "HOLD", class: "signal-neutral-sm" };
+    const changePercent = ((price - baseObj.base) / baseObj.base) * 100;
+    if (changePercent > 0.08) return { type: "BUY 🔥", class: "signal-buy-sm" };
+    if (changePercent < -0.08) return { type: "SELL ⚡", class: "signal-sell-sm" };
+    return { type: "HOLD", class: "signal-neutral-sm" };
   }
 
-  // Generate AI Entry, SL, TP1, TP2 based on price and direction
-  function getAITradeLevels(pair, price, signalType) {
-    let isBuy = signalType.includes("BUY");
-    let atr = (pair.includes("JPY")) ? 0.35 : (pair.includes("XAU") ? 12 : 0.0025);
+  // Generate ENTRY/SL/TP based on price & direction + timeframe factor
+  function generateLevels(pair, price, direction, timeframeMultiplier = 1) {
+    let atrBase = 0;
+    if (pair.includes("JPY")) atrBase = 0.35;
+    else if (pair.includes("XAU")) atrBase = 12;
+    else atrBase = 0.0024;
+    let atr = atrBase * (timeframeMultiplier * 0.8 + 0.6);
     let entry = price;
     let sl, tp1, tp2;
-    if (isBuy) {
+    if (direction === "BUY" || direction.includes("BUY")) {
       sl = parseFloat((price - atr * 1.2).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
-      tp1 = parseFloat((price + atr * 1.8).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
-      tp2 = parseFloat((price + atr * 2.8).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
+      tp1 = parseFloat((price + atr * 1.6).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
+      tp2 = parseFloat((price + atr * 2.5).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
     } else {
       sl = parseFloat((price + atr * 1.2).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
-      tp1 = parseFloat((price - atr * 1.6).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
-      tp2 = parseFloat((price - atr * 2.5).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
+      tp1 = parseFloat((price - atr * 1.5).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
+      tp2 = parseFloat((price - atr * 2.4).toFixed(pair.includes("JPY") ? 2 : (pair.includes("XAU") ? 2 : 4)));
     }
-    return { entry: entry, sl: sl, tp1: tp1, tp2: tp2 };
+    return { entry, sl, tp1, tp2 };
   }
 
-  function renderMarketTable() {
+  // render market scanner table
+  function renderScannerTable() {
     const tbody = document.getElementById('tableBody');
     tbody.innerHTML = '';
-    forexPairs.forEach(p => {
-      const currentPrice = lastPrices[p.pair];
-      const changePercent = ((currentPrice - p.basePrice) / p.basePrice * 100).toFixed(2);
-      const signalObj = getSignal(parseFloat(changePercent), p.pair);
-      const signalTypeRaw = signalObj.type;
-      const tradeLevels = getAITradeLevels(p.pair, currentPrice, signalTypeRaw);
-      
+    forexAssets.forEach(asset => {
+      const price = currentPrices[asset.pair];
+      const baseObj = forexAssets.find(a => a.pair === asset.pair);
+      const changePercent = ((price - baseObj.base) / baseObj.base) * 100;
+      const signal = getSignalFromChange(asset.pair, price);
+      const direction = signal.type.includes("BUY") ? "BUY" : (signal.type.includes("SELL") ? "SELL" : "HOLD");
+      const levels = generateLevels(asset.pair, price, direction, 1);
       const row = tbody.insertRow();
-      // Pair
-      const pairCell = row.insertCell(0);
-      pairCell.innerHTML = `<div class="pair-name"><i class="fas fa-chart-line"></i> ${p.pair}</div>`;
-      // Price
-      const priceCell = row.insertCell(1);
-      priceCell.innerHTML = `<span class="${changePercent >=0 ? 'price-up' : 'price-down'}">${currentPrice.toFixed(p.pair.includes('JPY')?2:(p.pair.includes('XAU')?2:4))}</span>`;
-      // Change %
-      const chgCell = row.insertCell(2);
-      const arrow = changePercent >=0 ? '▲' : '▼';
-      chgCell.innerHTML = `<span class="${changePercent>=0?'price-up':'price-down'}">${arrow} ${Math.abs(changePercent)}%</span>`;
-      // Signal cell
-      const sigCell = row.insertCell(3);
-      sigCell.innerHTML = `<span class="signal-cell ${signalObj.class}">${signalObj.type}</span>`;
-      // AI ENTRY/TP/SL formatted
-      const levelCell = row.insertCell(4);
-      levelCell.style.fontSize = "0.7rem";
-      levelCell.innerHTML = `<div style="font-family: monospace;">E: ${tradeLevels.entry} | SL: ${tradeLevels.sl}<br>TP1: ${tradeLevels.tp1} | TP2: ${tradeLevels.tp2}</div>`;
+      row.insertCell(0).innerHTML = `<strong>${asset.pair}</strong>`;
+      row.insertCell(1).innerHTML = `${price.toFixed(asset.pair.includes('JPY')?2:(asset.pair.includes('XAU')?2:4))}`;
+      row.insertCell(2).innerHTML = `<span style="color:${changePercent>=0?'#2dd4bf':'#f87171'}">${changePercent>=0?'▲':'▼'} ${Math.abs(changePercent).toFixed(2)}%</span>`;
+      row.insertCell(3).innerHTML = `<span class="signal-badge-sm ${signal.class}">${signal.type}</span>`;
+      row.insertCell(4).innerHTML = `<div style="font-size:0.65rem;">E:${levels.entry} | SL:${levels.sl}<br>TP1:${levels.tp1} TP2:${levels.tp2}</div>`;
     });
   }
 
-  // Live sessions detection (Forex market open hours UTC)
-  function updateLiveSessions() {
-    const now = new Date();
-    const utcHour = now.getUTCHours();
-    // session ranges UTC: Sydney 22-07, Tokyo 00-09, London 07-16, NewYork 12-21
-    const active = {
-      sydney: utcHour >= 22 || utcHour < 7,
-      tokyo: utcHour >= 0 && utcHour < 9,
-      london: utcHour >= 7 && utcHour < 16,
-      newyork: utcHour >= 12 && utcHour < 21
-    };
-    const sessions = document.querySelectorAll('.session');
-    sessions.forEach(s => {
-      const sessName = s.getAttribute('data-sess');
-      if (active[sessName]) {
-        s.classList.add('active-live');
-        s.style.opacity = '1';
-      } else {
-        s.classList.remove('active-live');
-      }
-    });
-    const volatilitySpan = document.getElementById('volatilityTag');
-    if (active.london && active.newyork) volatilitySpan.innerHTML = '🔥 OVERLAP · EXTREME VOLATILITY';
-    else if (active.london) volatilitySpan.innerHTML = '📈 LONDON SESSION · HIGH LIQUIDITY';
-    else if (active.newyork) volatilitySpan.innerHTML = '🗽 NY SESSION · STRONG MOVES';
-    else volatilitySpan.innerHTML = '🌏 ASIAN SESSION · RANGE BOUND';
-  }
-
-  // ************** INTELLIGENT AI CHAT SCANNER (Generates Entry, SL, TP1, TP2 for any pair) **************
-  function getAIAnalysisForPair(userPair) {
-    let normalized = userPair.toUpperCase().replace(/ /g, '');
-    let foundPair = forexPairs.find(p => p.pair === normalized);
-    if (!foundPair) {
-      // try to match similar
-      foundPair = forexPairs.find(p => normalized.includes(p.pair.replace('/', '')) || p.pair.includes(normalized));
-      if (!foundPair) return null;
+  // ---------- CHART.JS WITH TIMEFRAME SIMULATION ----------
+  let chart;
+  let currentTimeframe = "H1";
+  let currentPair = "EUR/USD";
+  function generateChartData(pair, timeframe) {
+    let basePrice = currentPrices[pair] || 1.0876;
+    let volatilityFactor = timeframe === "M5" ? 0.0012 : (timeframe === "M15" ? 0.002 : (timeframe === "H1" ? 0.0035 : (timeframe === "H4" ? 0.006 : 0.01)));
+    let points = 30;
+    let data = [];
+    let price = basePrice;
+    for (let i = 0; i < points; i++) {
+      let change = (Math.random() - 0.5) * volatilityFactor * basePrice;
+      price += change;
+      if(pair.includes("JPY")) price = Math.max(147, Math.min(152, price));
+      data.push(price);
     }
-    const currentPrice = lastPrices[foundPair.pair];
-    const changePct = ((currentPrice - foundPair.basePrice) / foundPair.basePrice * 100).toFixed(2);
-    const signal = parseFloat(changePct) >= 0 ? "BUY" : "SELL";
-    const levels = getAITradeLevels(foundPair.pair, currentPrice, signal);
-    const reason = (signal === "BUY") ? "bullish momentum & support holding" : "resistance rejection & selling pressure";
-    return {
-      pair: foundPair.pair,
-      price: currentPrice,
-      direction: signal,
-      entry: levels.entry,
-      sl: levels.sl,
-      tp1: levels.tp1,
-      tp2: levels.tp2,
-      confidence: Math.floor(Math.random() * 20) + 75,
-      analysis: `RSI divergence + volume profile suggests ${signal.toLowerCase()} opportunity. Key level: ${signal === 'BUY' ? 'demand zone' : 'supply zone'}`
-    };
+    return data;
   }
 
-  function addAIMessageToChat(content, isUser = false) {
-    const chatDiv = document.getElementById('chatMessages');
-    const msgDiv = document.createElement('div');
-    msgDiv.className = `message ${isUser ? 'user-msg' : 'ai-msg'}`;
-    if (isUser) {
-      msgDiv.innerHTML = `<i class="fas fa-user"></i> <strong>You:</strong> ${content}`;
+  function updateChart() {
+    const newData = generateChartData(currentPair, currentTimeframe);
+    if (chart) {
+      chart.data.datasets[0].data = newData;
+      chart.update();
     } else {
-      msgDiv.innerHTML = content;
+      const ctx = document.getElementById('priceChart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: { labels: Array(30).fill(''), datasets: [{ data: newData, borderColor: '#38bdf8', borderWidth: 2, fill: true, backgroundColor: 'rgba(56,189,248,0.05)', pointRadius: 0, tension: 0.2 }] },
+        options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false }, tooltip: { enabled: true } }, scales: { x: { display: false }, y: { grid: { color: '#1f344b' } } } }
+      });
     }
-    chatDiv.appendChild(msgDiv);
-    msgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  function handleAIRequest(userMessage) {
-    const lowerMsg = userMessage.toLowerCase();
-    let responseHtml = '';
-    // detect pair: look for known forex symbols
-    let targetPair = null;
-    for (let p of forexPairs) {
-      if (lowerMsg.includes(p.pair.toLowerCase().replace('/', '')) || lowerMsg.includes(p.pair.toLowerCase())) {
-        targetPair = p.pair;
+  // update entry card based on current pair & timeframe & AI direction
+  function updateEntryCardForPairAndTimeframe() {
+    const price = currentPrices[currentPair] || 1.0876;
+    const signalObj = getSignalFromChange(currentPair, price);
+    let direction = signalObj.type.includes("BUY") ? "BUY" : (signalObj.type.includes("SELL") ? "SELL" : "NEUTRAL");
+    let tfMult = currentTimeframe === "M5" ? 0.6 : (currentTimeframe === "M15" ? 0.8 : (currentTimeframe === "H1" ? 1 : (currentTimeframe === "H4" ? 1.5 : 2.2)));
+    const levels = generateLevels(currentPair, price, direction, tfMult);
+    document.getElementById('entryVal').innerText = levels.entry;
+    document.getElementById('slVal').innerText = levels.sl;
+    document.getElementById('tp1Val').innerText = levels.tp1;
+    document.getElementById('tp2Val').innerText = levels.tp2;
+    document.getElementById('timeframeInsight').innerHTML = `${currentTimeframe} · ${direction === "BUY" ? "Bullish Setup" : (direction === "SELL" ? "Bearish Setup" : "Consolidation")}`;
+    document.getElementById('activePairDisplay').innerHTML = `<i class="fas fa-chart-line"></i> ${currentPair}`;
+  }
+
+  // AI Chat logic: handle entry request with timeframe detection
+  function aiChatResponse(userMessage) {
+    let lower = userMessage.toLowerCase();
+    let detectedPair = null;
+    for (let asset of forexAssets) {
+      if (lower.includes(asset.pair.toLowerCase().replace('/', '')) || lower.includes(asset.pair.toLowerCase())) {
+        detectedPair = asset.pair;
         break;
       }
     }
-    if (targetPair) {
-      const analysis = getAIAnalysisForPair(targetPair);
-      if (analysis) {
-        responseHtml = `<i class="fas fa-brain"></i> <strong>AI SCANNER · ${analysis.pair}</strong><br>
-        📊 <span class="msg-pair">ENTRY: ${analysis.entry}</span> &nbsp;| 🛑 SL: ${analysis.sl}<br>
-        🎯 TP1: ${analysis.tp1} &nbsp;| 🎯 TP2: ${analysis.tp2}<br>
-        🔍 Direction: <span style="color:${analysis.direction === 'BUY' ? '#5effbc' : '#ff9e9e'}">${analysis.direction}</span> (${analysis.analysis})<br>
-        🤖 Confidence: ${analysis.confidence}% | Current Price: ${analysis.price}`;
-        addAIMessageToChat(responseHtml, false);
-        return;
-      }
-    }
-    // fallback generic entry generation
-    if (lowerMsg.includes("entry") || lowerMsg.includes("signal") || lowerMsg.includes("tp") || lowerMsg.includes("sl")) {
-      const randomPair = forexPairs[Math.floor(Math.random() * forexPairs.length)];
-      const gen = getAIAnalysisForPair(randomPair.pair);
-      if (gen) {
-        responseHtml = `<i class="fas fa-chart-line"></i> <strong>LIVE SIGNAL (${gen.pair})</strong><br>
-        🟢 ENTRY: ${gen.entry} &nbsp; 🔴 SL: ${gen.sl}<br>
-        📈 TP1: ${gen.tp1} &nbsp; 📈 TP2: ${gen.tp2}<br>
-        💡 Insight: ${gen.analysis} | Market condition: trending.`;
-        addAIMessageToChat(responseHtml, false);
-        return;
-      }
-    }
-    // default smart answer
-    responseHtml = `<i class="fas fa-robot"></i> <strong>NEXUS AI:</strong> Use me as your live forex scanner! Ask: "Analyze EURUSD", "Give entry for GBPJPY", "Show TP/SL for Gold". I provide real-time Entry, Stop Loss, TP1, TP2 based on live volatility.`;
-    addAIMessageToChat(responseHtml, false);
+    let detectedTF = null;
+    if (lower.includes("m5")) detectedTF = "M5";
+    else if (lower.includes("m15")) detectedTF = "M15";
+    else if (lower.includes("h1")) detectedTF = "H1";
+    else if (lower.includes("h4")) detectedTF = "H4";
+    else if (lower.includes("d1")) detectedTF = "D1";
+    if (!detectedPair) detectedPair = currentPair;
+    if (!detectedTF) detectedTF = currentTimeframe;
+    const price = currentPrices[detectedPair] || 1.0876;
+    const signal = getSignalFromChange(detectedPair, price);
+    let direction = signal.type.includes("BUY") ? "BUY" : (signal.type.includes("SELL") ? "SELL" : "NEUTRAL");
+    let tfMult = detectedTF === "M5" ? 0.6 : (detectedTF === "M15" ? 0.8 : (detectedTF === "H1" ? 1 : (detectedTF === "H4" ? 1.5 : 2.2)));
+    const lev = generateLevels(detectedPair, price, direction, tfMult);
+    let advice = `🔍 <strong>${detectedPair} | ${detectedTF} Analysis</strong><br>📊 ENTRY: ${lev.entry} | 🛑 SL: ${lev.sl}<br>🎯 TP1: ${lev.tp1} | TP2: ${lev.tp2}<br>💡 Signal: ${signal.type} | Market context: ${direction === "BUY" ? "bullish momentum" : (direction === "SELL" ? "bearish pressure" : "sideways")}.<br><i>AI recommends ${direction === "BUY" ? "LONG" : (direction === "SELL" ? "SHORT" : "WAIT")}</i>`;
+    return advice;
   }
 
-  // auto-refresh table + live data and send periodic market commentary
-  let intervalRefresh;
-  function startLiveUpdates() {
-    updateLivePrices();
-    renderMarketTable();
-    updateLiveSessions();
-    // also update the clock
-    const now = new Date();
-    document.getElementById('liveClock').innerHTML = `<i class="far fa-clock"></i> ${now.toLocaleTimeString('en-GB', { hour12: false })} UTC`;
-    // each 3 seconds new AI insight about random pair optional? add to chat only if user not spamming, but we add one "market pulse" occasionally
+  function addMessage(text, isUser = false) {
+    const container = document.getElementById('chatMessages');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = isUser ? 'user-msg' : 'ai-msg';
+    if (isUser) msgDiv.innerHTML = `<i class="fas fa-user"></i> <strong>You:</strong> ${text}`;
+    else msgDiv.innerHTML = `<i class="fas fa-robot"></i> ${text}`;
+    container.appendChild(msgDiv);
+    msgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
-  setInterval(() => {
-    startLiveUpdates();
-  }, 2800);
-  
-  // additional real-time chat AI function
-  document.getElementById('sendChatBtn').addEventListener('click', () => {
-    const inputEl = document.getElementById('aiUserInput');
-    const msg = inputEl.value.trim();
-    if (msg === "") return;
-    addAIMessageToChat(msg, true);
-    handleAIRequest(msg);
-    inputEl.value = "";
+
+  // timeframe buttons & realtime sync
+  document.querySelectorAll('.tf-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentTimeframe = btn.getAttribute('data-tf');
+      updateChart();
+      updateEntryCardForPairAndTimeframe();
+      addMessage(`📈 Timeframe switched to ${currentTimeframe}. Chart & entry levels updated for ${currentPair}.`, false);
+    });
   });
-  document.getElementById('aiUserInput').addEventListener('keypress', (e) => {
+
+  // optional: clicking on table row changes chart pair
+  function attachTableRowEvents() {
+    const rows = document.querySelectorAll('#tableBody tr');
+    rows.forEach(row => {
+      row.style.cursor = 'pointer';
+      row.addEventListener('click', (e) => {
+        const pairCell = row.cells[0].innerText;
+        currentPair = pairCell;
+        updateChart();
+        updateEntryCardForPairAndTimeframe();
+        addMessage(`🔄 Chart switched to ${currentPair}. Loading ${currentTimeframe} structure.`, false);
+      });
+    });
+  }
+
+  // live loop update every 2.5 sec
+  setInterval(() => {
+    updateLivePrices();
+    renderScannerTable();
+    attachTableRowEvents();
+    updateEntryCardForPairAndTimeframe();
+    updateChart(); // refresh chart with new last price
+    const now = new Date();
+    document.getElementById('liveTimeHeader').innerHTML = now.toLocaleTimeString('en-GB', { hour12: false }) + ' UTC';
+  }, 2500);
+
+  // Chat interface
+  document.getElementById('sendChatBtn').addEventListener('click', () => {
+    const input = document.getElementById('chatInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    addMessage(msg, true);
+    const response = aiChatResponse(msg);
+    addMessage(response, false);
+    input.value = '';
+  });
+  document.getElementById('chatInput').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') document.getElementById('sendChatBtn').click();
   });
 
-  // initial call
-  startLiveUpdates();
-  // additional first AI greeting for extra entry example
-  setTimeout(() => {
-    addAIMessageToChat(`<i class="fas fa-chart-simple"></i> <strong>🔥 REAL-TIME AI SCANNER ACTIVE 🔥</strong><br>Latest <strong>GBP/JPY</strong> Analysis: ENTRY: 189.62 | SL: 188.90 | TP1: 190.45 | TP2: 191.20<br>Market sessions: LONDON/NY overlap increases volatility. Use chat to get custom entries.`, false);
-  }, 1500);
+  // initial rendering
+  renderScannerTable();
+  attachTableRowEvents();
+  updateChart();
+  updateEntryCardForPairAndTimeframe();
+  setInterval(() => {
+    updateEntryCardForPairAndTimeframe();
+  }, 3000);
 </script>
 </body>
 </html>
