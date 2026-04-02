@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -900,7 +899,7 @@ Analyse price action, momentum, and provide realistic entry/SL/TP based on ATR l
 Respond ONLY with valid JSON, no markdown, no extra text:
 {"signal":"BUY" or "SELL" or "NEUTRAL","strength":1-100,"confidence":1-100,"trend":"BULLISH" or "BEARISH" or "RANGING","entry":number,"sl":number,"tp":number,"rr":number,"summary":"2 professional analytical sentences","setup":"e.g. Trend Continuation, Breakout, RSI Divergence","indicators":{"rsi_signal":"OVERSOLD" or "OVERBOUGHT" or "NEUTRAL","macd_signal":"BULLISH_CROSS" or "BEARISH_CROSS" or "NEUTRAL","trend_signal":"STRONG_UP" or "STRONG_DOWN" or "SIDEWAYS","support":number,"resistance":number,"atr":number}}`;
 
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('/api/ai',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
@@ -1005,7 +1004,7 @@ Based on your analysis, provide a professional trading recommendation.
 Respond ONLY with valid JSON, no markdown:
 {"signal":"BUY" or "SELL" or "NEUTRAL","confidence":1-100,"strength":1-100,"trend":"BULLISH" or "BEARISH" or "RANGING","entry":"describe entry level or price","sl":"describe stop loss level or price","tp":"describe take profit level or price","rr":"R:R ratio as a number","summary":"Write 3 detailed sentences: what you see in the chart, why you recommend this direction, and the key risk","setup":"technical setup name","patterns":["visible pattern 1","visible pattern 2"],"key_levels":["key level description 1","key level description 2"],"indicators_visible":["indicator name and signal"]}`;
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('/api/ai',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
