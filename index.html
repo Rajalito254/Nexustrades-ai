@@ -863,7 +863,7 @@ function drawMACD(){
 }
 
 // ════════════════════════════════════════════════════════
-// AI TEXT SCAN
+// AI TEXT SCAN - MODIFIED FOR GEMINI (NO MODEL PARAMETER)
 // ════════════════════════════════════════════════════════
 async function runScan(){
   if(ST.scanning)return;
@@ -899,10 +899,11 @@ Analyse price action, momentum, and provide realistic entry/SL/TP based on ATR l
 Respond ONLY with valid JSON, no markdown, no extra text:
 {"signal":"BUY" or "SELL" or "NEUTRAL","strength":1-100,"confidence":1-100,"trend":"BULLISH" or "BEARISH" or "RANGING","entry":number,"sl":number,"tp":number,"rr":number,"summary":"2 professional analytical sentences","setup":"e.g. Trend Continuation, Breakout, RSI Divergence","indicators":{"rsi_signal":"OVERSOLD" or "OVERBOUGHT" or "NEUTRAL","macd_signal":"BULLISH_CROSS" or "BEARISH_CROSS" or "NEUTRAL","trend_signal":"STRONG_UP" or "STRONG_DOWN" or "SIDEWAYS","support":number,"resistance":number,"atr":number}}`;
 
+    // MODIFIED: Removed model parameter for Gemini backend
     const res=await fetch('/api/ai',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+      body:JSON.stringify({max_tokens:1000,messages:[{role:'user',content:prompt}]})
     });
     const data=await res.json();
     if(data.error)throw new Error(data.error.message||'API error');
@@ -916,7 +917,7 @@ Respond ONLY with valid JSON, no markdown, no extra text:
     addLog(`✓ ${ST.sel.s} ${result.signal} @ ${result.entry?.toFixed(ST.sel.d)} | R:R ${result.rr} | Conf:${result.confidence}%`,'ok');
   }catch(e){
     addLog(`✗ AI Scan failed: ${e.message}`,'err');
-    alert('AI Scan failed: '+e.message+'\n\nNote: This requires an Anthropic API key. The app calls the API directly from your browser.');
+    alert('AI Scan failed: '+e.message+'\n\nNote: Make sure GEMINI_API_KEY is set in Vercel environment variables.');
   }finally{
     ST.scanning=false;
     btn.innerHTML='&#x26A1; AI SCAN';btn.disabled=false;
@@ -952,7 +953,7 @@ function renderAI(a){
 }
 
 // ════════════════════════════════════════════════════════
-// SCREENSHOT AI SCANNER
+// SCREENSHOT AI SCANNER - MODIFIED FOR GEMINI (NO MODEL PARAMETER)
 // ════════════════════════════════════════════════════════
 function setMode(btn){
   document.querySelectorAll('.smode').forEach(b=>b.classList.remove('on'));
@@ -1004,11 +1005,11 @@ Based on your analysis, provide a professional trading recommendation.
 Respond ONLY with valid JSON, no markdown:
 {"signal":"BUY" or "SELL" or "NEUTRAL","confidence":1-100,"strength":1-100,"trend":"BULLISH" or "BEARISH" or "RANGING","entry":"describe entry level or price","sl":"describe stop loss level or price","tp":"describe take profit level or price","rr":"R:R ratio as a number","summary":"Write 3 detailed sentences: what you see in the chart, why you recommend this direction, and the key risk","setup":"technical setup name","patterns":["visible pattern 1","visible pattern 2"],"key_levels":["key level description 1","key level description 2"],"indicators_visible":["indicator name and signal"]}`;
   try{
+    // MODIFIED: Removed model parameter for Gemini backend
     const res=await fetch('/api/ai',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
         max_tokens:1200,
         messages:[{role:'user',content:[
           {type:'image',source:{type:'base64',media_type:ST.imgMime,data:ST.imgB64}},
